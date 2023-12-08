@@ -1,19 +1,5 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/function-component-definition */
-/**
-=========================================================
-* Material Dashboard 2 React - v2.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -25,6 +11,7 @@ import MDBadge from "components/MDBadge";
 import team2 from "assets/images/team-2.jpg";
 import team3 from "assets/images/team-3.jpg";
 import team4 from "assets/images/team-4.jpg";
+import { Icon } from "@mui/material";
 
 export default function data() {
   const Author = ({ image, name, email }) => (
@@ -50,16 +37,18 @@ export default function data() {
 
   return {
     columns: [
-      { Header: "author", accessor: "author", width: "45%", align: "left" },
+      { Header: "customer", accessor: "customer", width: "45%", align: "left" },
       { Header: "function", accessor: "function", align: "left" },
-      { Header: "status", accessor: "status", align: "center" },
+      // { Header: "status", accessor: "status", align: "center" },
       { Header: "employed", accessor: "employed", align: "center" },
-      { Header: "action", accessor: "action", align: "center" },
+      { Header: "edit", accessor: "edit", width: "5%", align: "center" },
+      { Header: "view", accessor: "view", width: "5%", align: "center" },
+      { Header: "delete", accessor: "delete", width: "5%", align: "center" },
     ],
 
     rows: [
       {
-        author: <Author image={team2} name="John Michael" email="john@creative-tim.com" />,
+        customer: <Author image={team2} name="John Michael" email="john@creative-tim.com" />,
         function: <Job title="Manager" description="Organization" />,
         status: (
           <MDBox ml={-1}>
@@ -71,14 +60,24 @@ export default function data() {
             23/04/18
           </MDTypography>
         ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
+        edit: (
+          <MDTypography fontSize="large" variant="caption" color="text" fontWeight="medium">
+            <Icon>edit</Icon>
+          </MDTypography>
+        ),
+        view: (
+          <MDTypography fontSize="large" variant="caption" color="text" fontWeight="medium">
+            <Icon>visibility</Icon>
+          </MDTypography>
+        ),
+        delete: (
+          <MDTypography fontSize="large" variant="caption" color="text" fontWeight="medium">
+            <Icon color="error">delete</Icon>
           </MDTypography>
         ),
       },
       {
-        author: <Author image={team3} name="Alexa Liras" email="alexa@creative-tim.com" />,
+        customer: <Author image={team3} name="Alexa Liras" email="alexa@creative-tim.com" />,
         function: <Job title="Programator" description="Developer" />,
         status: (
           <MDBox ml={-1}>
@@ -90,14 +89,24 @@ export default function data() {
             11/01/19
           </MDTypography>
         ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
+        edit: (
+          <MDTypography fontSize="large" variant="caption" color="text" fontWeight="medium">
+            <Icon>edit</Icon>
+          </MDTypography>
+        ),
+        view: (
+          <MDTypography fontSize="large" variant="caption" color="text" fontWeight="medium">
+            <Icon>visibility</Icon>
+          </MDTypography>
+        ),
+        delete: (
+          <MDTypography fontSize="large" variant="caption" color="text" fontWeight="medium">
+            <Icon color="error">delete</Icon>
           </MDTypography>
         ),
       },
       {
-        author: <Author image={team4} name="Laurent Perrier" email="laurent@creative-tim.com" />,
+        customer: <Author image={team4} name="Laurent Perrier" email="laurent@creative-tim.com" />,
         function: <Job title="Executive" description="Projects" />,
         status: (
           <MDBox ml={-1}>
@@ -109,14 +118,24 @@ export default function data() {
             19/09/17
           </MDTypography>
         ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
+        edit: (
+          <MDTypography fontSize="large" variant="caption" color="text" fontWeight="medium">
+            <Icon>edit</Icon>
+          </MDTypography>
+        ),
+        view: (
+          <MDTypography fontSize="large" variant="caption" color="text" fontWeight="medium">
+            <Icon>visibility</Icon>
+          </MDTypography>
+        ),
+        delete: (
+          <MDTypography fontSize="large" variant="caption" color="text" fontWeight="medium">
+            <Icon color="error">delete</Icon>
           </MDTypography>
         ),
       },
       {
-        author: <Author image={team3} name="Michael Levi" email="michael@creative-tim.com" />,
+        customer: <Author image={team3} name="Michael Levi" email="michael@creative-tim.com" />,
         function: <Job title="Programator" description="Developer" />,
         status: (
           <MDBox ml={-1}>
@@ -128,14 +147,24 @@ export default function data() {
             24/12/08
           </MDTypography>
         ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
+        edit: (
+          <MDTypography fontSize="large" variant="caption" color="text" fontWeight="medium">
+            <Icon>edit</Icon>
+          </MDTypography>
+        ),
+        view: (
+          <MDTypography fontSize="large" variant="caption" color="text" fontWeight="medium">
+            <Icon>visibility</Icon>
+          </MDTypography>
+        ),
+        delete: (
+          <MDTypography fontSize="large" variant="caption" color="text" fontWeight="medium">
+            <Icon color="error">delete</Icon>
           </MDTypography>
         ),
       },
       {
-        author: <Author image={team3} name="Richard Gran" email="richard@creative-tim.com" />,
+        customer: <Author image={team3} name="Richard Gran" email="richard@creative-tim.com" />,
         function: <Job title="Manager" description="Executive" />,
         status: (
           <MDBox ml={-1}>
@@ -147,14 +176,24 @@ export default function data() {
             04/10/21
           </MDTypography>
         ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
+        edit: (
+          <MDTypography fontSize="large" variant="caption" color="text" fontWeight="medium">
+            <Icon>edit</Icon>
+          </MDTypography>
+        ),
+        view: (
+          <MDTypography fontSize="large" variant="caption" color="text" fontWeight="medium">
+            <Icon>visibility</Icon>
+          </MDTypography>
+        ),
+        delete: (
+          <MDTypography fontSize="large" variant="caption" color="text" fontWeight="medium">
+            <Icon color="error">delete</Icon>
           </MDTypography>
         ),
       },
       {
-        author: <Author image={team4} name="Miriam Eric" email="miriam@creative-tim.com" />,
+        customer: <Author image={team4} name="Miriam Eric" email="miriam@creative-tim.com" />,
         function: <Job title="Programator" description="Developer" />,
         status: (
           <MDBox ml={-1}>
@@ -166,9 +205,19 @@ export default function data() {
             14/09/20
           </MDTypography>
         ),
-        action: (
-          <MDTypography component="a" href="#" variant="caption" color="text" fontWeight="medium">
-            Edit
+        edit: (
+          <MDTypography variant="caption" color="text" fontSize="large" fontWeight="medium">
+            <Icon>edit</Icon>
+          </MDTypography>
+        ),
+        view: (
+          <MDTypography fontSize="large" variant="caption" color="text" fontWeight="medium">
+            <Icon>visibility</Icon>
+          </MDTypography>
+        ),
+        delete: (
+          <MDTypography variant="caption" color="text" fontSize="large" fontWeight="medium">
+            <Icon color="error">delete</Icon>
           </MDTypography>
         ),
       },

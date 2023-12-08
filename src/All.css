@@ -1,0 +1,70 @@
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Sen", sans-serif !important;
+}
+
+.black-text {
+  color: #17202a;
+  font-weight: 500;
+  font-size: 16px;
+}
+.white-text {
+  color: white;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.black-background {
+  background-color: white;
+  color: black;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.white-background {
+  background-color: white;
+  color: black;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.thumb-image-div {
+  display: flex;
+  justify-content: center;
+}
+.thumb-img {
+  display: flex;
+  width: 40%;
+  height: 40%;
+  justify-content: center;
+  align-items: center;
+  animation: hithere 1s ease-in infinite;
+}
+
+@keyframes hithere {
+  30% {
+    transform: scale(1.2);
+  }
+  40%,
+  60% {
+    transform: rotate(-20deg) scale(1.2);
+  }
+  50% {
+    transform: rotate(20deg) scale(1.2);
+  }
+  70% {
+    transform: rotate(0deg) scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.background-img-paper {
+  background-image: url("../src/assets/images/celebration-paper.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
