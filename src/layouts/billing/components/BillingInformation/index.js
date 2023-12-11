@@ -2,21 +2,59 @@
 import { Divider, FormGroup } from "@mui/material";
 import Card from "@mui/material/Card";
 
+import axios from "axios";
+
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useMaterialUIController } from "context";
 // Billing page components
-import React from "react";
+import React, { useState } from "react";
 import { CardBody, Col, Input, Label, Row } from "reactstrap";
 import * as Yup from "yup";
-import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import whiteThumb from "../../../../../src/assets/images/thumb-up-white.png";
 import darkThumb from "../../../../../src/assets/images/thumb-up-dark.png";
 function BillingInformation() {
   const [controller, dispatch] = useMaterialUIController();
   const [modalOpen, setModalOpen] = React.useState(false);
+
+  const [prnNo, setPrnNo] = useState("");
+  const [docNo, setDocNo] = useState("");
+  const [corporate, setCorporate] = useState("");
+  const [agentName, setAgentName] = useState("");
+  const [bookedBy, setBookedBy] = useState("");
+  const [modifiedBy, setModifiedBy] = useState("");
+  const [bookName, setBookName] = useState("");
+  const [receiptNo, setReceiptNo] = useState("");
+  const [bookingDate, setBookingDate] = useState("");
+  const [bookingTime, setBookingTime] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phoneNo, setPhoneNo] = useState("");
+  const [alternatePhoneNo, setAlternatePhoneNo] = useState("");
+  const [address, setAddress] = useState("");
+  const [pickupDate, setPickupDate] = useState("");
+  const [pickupTime, setPickupTime] = useState("");
+  const [pickupPoint, setPickupPoint] = useState("");
+  const [pickupAddress, setPickupAddress] = useState("");
+  const [passengerRemark, setPassengerRemark] = useState("");
+  const [area, setArea] = useState("");
+  const [trip, setTrip] = useState("");
+  const [airportType, setAirportType] = useState("");
+  const [flightNo, setFlightNo] = useState("");
+  const [flightDate, setFlightDate] = useState("");
+  const [flightETA, setFlightETA] = useState("");
+  const [departDate, setDepartDate] = useState("");
+  const [departTime, setDepartTime] = useState("");
+  const [totalSeats, setTotalSeats] = useState("");
+  const [ticketAmount, setTicketAmount] = useState("");
+  const [discountAmount, setDiscountAmount] = useState("");
+  const [cgstAmt, setCgstAmt] = useState("");
+  const [sgstAmt, setSgstAmt] = useState("");
+  const [totalAmount, setTotalAmount] = useState("");
+  const [pickupCharges, setPickupCharges] = useState("");
 
   const { darkMode } = controller;
   const validationSchema = Yup.object().shape({
@@ -65,6 +103,50 @@ function BillingInformation() {
     totalamount: Yup.number().required("Total amount is required"),
     olpickup: Yup.number().required("O/L pickup charges is required"),
   });
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    let newData = {
+      prnNo: prnNo,
+      docNo: docNo,
+      corporate: corporate,
+      agentName: agentName,
+      bookedBy: bookedBy,
+      modifiedBy: modifiedBy,
+      bookName: bookName,
+      receiptNo: receiptNo,
+      bookingDate: bookingDate,
+      bookingTime: bookingTime,
+      fullName: fullName,
+      email: email,
+      phoneNo: phoneNo,
+      alternatePhoneNo: alternatePhoneNo,
+      address: address,
+      pickupDate: pickupDate,
+      pickupTime: pickupTime,
+      pickupPoint: pickupPoint,
+      pickupAddress: pickupAddress,
+      passengerRemark: passengerRemark,
+      area: area,
+      trip: trip,
+      airportType: airportType,
+      flightNo: flightNo,
+      flightDate: flightDate,
+      flightETA: flightETA,
+      departDate: departDate,
+      departTime: departTime,
+      totalSeats: totalSeats,
+      ticketAmount: ticketAmount,
+      discountAmount: discountAmount,
+      cgstAmt: cgstAmt,
+      sgstAmt: sgstAmt,
+      totalAmount: totalAmount,
+      pickupCharges: pickupCharges,
+    };
+    axios.post("https://localhost:8000/addcustomer/add", newData).then((res) => {
+      console.log(res.data);
+    });
+  };
 
   return (
     <React.Fragment>
@@ -142,6 +224,8 @@ function BillingInformation() {
                                     }`}
                                     placeholder="Enter PRN Number"
                                     {...field}
+                                    value={prnNo}
+                                    onChange={(e) => setPrnNo(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="prnno"
@@ -166,6 +250,8 @@ function BillingInformation() {
                                     }`}
                                     {...field}
                                     placeholder="Enter Doc Number"
+                                    value={docNo}
+                                    onChange={(e) => setDocNo(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="docno"
@@ -195,6 +281,8 @@ function BillingInformation() {
                                     // className="form-control"
                                     placeholder="Enter Corporate"
                                     {...field}
+                                    value={corporate}
+                                    onChange={(e) => setCorporate(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="corporate"
@@ -221,6 +309,8 @@ function BillingInformation() {
                                     // className="form-control"
                                     {...field}
                                     placeholder="Enter Agent Name"
+                                    value={agentName}
+                                    onChange={(e) => setAgentName(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="agentname"
@@ -247,6 +337,8 @@ function BillingInformation() {
                                     }`}
                                     placeholder="Booked By"
                                     {...field}
+                                    value={bookedBy}
+                                    onChange={(e) => setBookedBy(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="bookedby"
@@ -271,6 +363,8 @@ function BillingInformation() {
                                     }`}
                                     {...field}
                                     placeholder="Modify By"
+                                    value={modifiedBy}
+                                    onChange={(e) => setModifiedBy(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="modifyby"
@@ -295,6 +389,8 @@ function BillingInformation() {
                                     }`}
                                     {...field}
                                     placeholder="Book Name"
+                                    value={bookName}
+                                    onChange={(e) => setBookName(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="bookname"
@@ -321,6 +417,8 @@ function BillingInformation() {
                                     }`}
                                     placeholder="Enter Receipt No"
                                     {...field}
+                                    value={receiptNo}
+                                    onChange={(e) => setReceiptNo(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="receiptno"
@@ -344,6 +442,8 @@ function BillingInformation() {
                                       meta.touched && meta.error ? "is-invalid" : ""
                                     }`}
                                     {...field}
+                                    value={bookingDate}
+                                    onChange={(e) => setBookingDate(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="bookingdate"
@@ -367,6 +467,8 @@ function BillingInformation() {
                                       meta.touched && meta.error ? "is-invalid" : ""
                                     }`}
                                     {...field}
+                                    value={bookingTime}
+                                    onChange={(e) => setBookingTime(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="bookingtime"
@@ -394,6 +496,8 @@ function BillingInformation() {
                                     }`}
                                     placeholder="Enter Full Name"
                                     {...field}
+                                    value={fullName}
+                                    onChange={(e) => setFullName(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="fullname"
@@ -418,6 +522,8 @@ function BillingInformation() {
                                     }`}
                                     {...field}
                                     placeholder="Enter Email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="email"
@@ -442,6 +548,8 @@ function BillingInformation() {
                                     }`}
                                     {...field}
                                     placeholder="Enter Phone Number"
+                                    value={phoneNo}
+                                    onChange={(e) => setPhoneNo(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="phoneno"
@@ -468,6 +576,8 @@ function BillingInformation() {
                                     }`}
                                     {...field}
                                     placeholder="Enter Alternate Phone Number"
+                                    value={alternatePhoneNo}
+                                    onChange={(e) => setAlternatePhoneNo(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="alterphoneno"
@@ -492,6 +602,8 @@ function BillingInformation() {
                                     }`}
                                     {...field}
                                     placeholder="Enter Address"
+                                    value={address}
+                                    onChange={(e) => setAddress(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="address"
@@ -517,6 +629,8 @@ function BillingInformation() {
                                       meta.touched && meta.error ? "is-invalid" : ""
                                     }`}
                                     {...field}
+                                    value={pickupDate}
+                                    onChange={(e) => setPickupDate(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="pickupdate"
@@ -540,6 +654,8 @@ function BillingInformation() {
                                       meta.touched && meta.error ? "is-invalid" : ""
                                     }`}
                                     {...field}
+                                    value={pickupTime}
+                                    onChange={(e) => setPickupTime(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="pickuptime"
@@ -564,6 +680,8 @@ function BillingInformation() {
                                     }`}
                                     {...field}
                                     placeholder="Enter Pickup Point"
+                                    value={pickupPoint}
+                                    onChange={(e) => setPickupPoint(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="pickuppoint"
@@ -590,6 +708,8 @@ function BillingInformation() {
                                     }`}
                                     {...field}
                                     placeholder="Enter Pickup Address"
+                                    value={pickupAddress}
+                                    onChange={(e) => setPickupAddress(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="pickupaddress"
@@ -614,6 +734,8 @@ function BillingInformation() {
                                     }`}
                                     {...field}
                                     placeholder="Enter Passenger Remark"
+                                    value={passengerRemark}
+                                    onChange={(e) => setPassengerRemark(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="passengerremark"
@@ -638,6 +760,8 @@ function BillingInformation() {
                                     }`}
                                     {...field}
                                     placeholder="Enter Area"
+                                    value={area}
+                                    onChange={(e) => setArea(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="area"
@@ -662,10 +786,12 @@ function BillingInformation() {
                                       meta.touched && meta.error ? "is-invalid" : ""
                                     }`}
                                     {...field}
+                                    // value={trip}
+                                    onChange={(e) => setTrip(e.target.value)}
                                   >
                                     <option value="" label="Select A Trip" />
-                                    <option value="nashiktomumbai" label="Nashik To Mumbai" />
-                                    <option value="mumbaitonashik" label="Mumbai To Nashik" />
+                                    <option value={trip} label="Nashik To Mumbai" />
+                                    <option value={trip} label="Mumbai To Nashik" />
                                   </select>
                                   <ErrorMessage
                                     name="trip"
@@ -688,10 +814,12 @@ function BillingInformation() {
                                       meta.touched && meta.error ? "is-invalid" : ""
                                     }`}
                                     {...field}
+                                    // value={airportType}
+                                    onChange={(e) => setAirportType(e.target.value)}
                                   >
                                     <option value="" label="Select Airport Type" />
-                                    <option value="international" label="International" />
-                                    <option value="domestic" label="Domestic" />
+                                    <option value={airportType} label="International" />
+                                    <option value={airportType} label="Domestic" />
                                   </select>
                                   <ErrorMessage
                                     name="airporttype"
@@ -716,6 +844,8 @@ function BillingInformation() {
                                     }`}
                                     {...field}
                                     placeholder="Enter Flight Number"
+                                    value={flightNo}
+                                    onChange={(e) => setFlightNo(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="flightno"
@@ -741,6 +871,8 @@ function BillingInformation() {
                                       meta.touched && meta.error ? "is-invalid" : ""
                                     }`}
                                     {...field}
+                                    value={flightDate}
+                                    onChange={(e) => setFlightDate(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="flightdate"
@@ -764,6 +896,8 @@ function BillingInformation() {
                                       meta.touched && meta.error ? "is-invalid" : ""
                                     }`}
                                     {...field}
+                                    value={flightETA}
+                                    onChange={(e) => setFlightETA(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="flighteta"
@@ -787,6 +921,8 @@ function BillingInformation() {
                                       meta.touched && meta.error ? "is-invalid" : ""
                                     }`}
                                     {...field}
+                                    value={departDate}
+                                    onChange={(e) => setDepartDate(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="departdate"
@@ -812,6 +948,8 @@ function BillingInformation() {
                                       meta.touched && meta.error ? "is-invalid" : ""
                                     }`}
                                     {...field}
+                                    value={departTime}
+                                    onChange={(e) => setDepartTime(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="departtime"
@@ -874,6 +1012,8 @@ function BillingInformation() {
                                     }`}
                                     {...field}
                                     placeholder="Enter Total Seats"
+                                    value={totalSeats}
+                                    onChange={(e) => setTotalSeats(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="totalseats"
@@ -898,6 +1038,8 @@ function BillingInformation() {
                                     }`}
                                     {...field}
                                     placeholder="Enter Ticket Amount"
+                                    value={ticketAmount}
+                                    onChange={(e) => setTicketAmount(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="ticketamount"
@@ -922,6 +1064,8 @@ function BillingInformation() {
                                     }`}
                                     {...field}
                                     placeholder="Enter Discount Amount"
+                                    value={discountAmount}
+                                    onChange={(e) => setDiscountAmount(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="discountamount"
@@ -948,6 +1092,8 @@ function BillingInformation() {
                                     }`}
                                     {...field}
                                     placeholder="Enter CGST Amount"
+                                    value={cgstAmt}
+                                    onChange={(e) => setCgstAmt(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="cgst"
@@ -972,6 +1118,8 @@ function BillingInformation() {
                                     }`}
                                     {...field}
                                     placeholder="Enter SGST Amount"
+                                    value={sgstAmt}
+                                    onChange={(e) => setSgstAmt(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="sgst"
@@ -996,6 +1144,8 @@ function BillingInformation() {
                                     }`}
                                     {...field}
                                     placeholder="Enter Total Amount"
+                                    value={totalAmount}
+                                    onChange={(e) => setTotalAmount(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="totalamount"
@@ -1022,6 +1172,8 @@ function BillingInformation() {
                                     }`}
                                     {...field}
                                     placeholder="Enter O/L PickUp Charges"
+                                    value={pickupCharges}
+                                    onChange={(e) => setPickupCharges(e.target.value)}
                                   />
                                   <ErrorMessage
                                     name="olpickup"
