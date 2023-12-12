@@ -67,17 +67,17 @@ function BillingInformation() {
     bookedby: Yup.string().required("Booked By is require"),
     modifyby: Yup.string().required("Modify By is require"),
     bookname: Yup.string().required("Book name is require"),
-    receiptno: Yup.number().required("Receip number is require"),
+    receiptno: Yup.string().required("Receip number is require"),
     bookingdate: Yup.date().required("Booking date is require"),
     bookingtime: Yup.string().required("Booking time is require"),
     fullname: Yup.string()
       .matches(/^[A-Za-z]+$/, "Full Name must contain only alphabets")
       .required("Full Name is required"),
     email: Yup.string().email("Invalid email").required("Email is required"),
-    phoneno: Yup.string()
+    phoneno: Yup.number()
       .matches(/^\d{10}$/, "Phone number must be exactly 10 digits")
       .required("Phone number is required"),
-    alterphoneno: Yup.string()
+    alterphoneno: Yup.number()
       .matches(/^\d{10}$/, "Phone number must be exactly 10 digits")
       .required("Alternate Phone number is required"),
     address: Yup.string().required("Address is required"),
@@ -88,8 +88,8 @@ function BillingInformation() {
     passengerremark: Yup.string().required("Passenger remark is required"),
     area: Yup.string().required("Area is required"),
     trip: Yup.string().required("Choose a Trip"),
-    flightno: Yup.string().required("Flight number is required"),
     airporttype: Yup.string().required("Choose Airport Type"),
+    flightno: Yup.string().required("Flight number is required"),
     flightdate: Yup.date().required("Flight date is required"),
     flighteta: Yup.string().required("Flight ETA is required"),
     departdate: Yup.date().required("Depart date is required"),
