@@ -143,7 +143,7 @@ function BillingInformation() {
       totalAmount: totalAmount,
       pickupCharges: pickupCharges,
     };
-    axios.post("https://localhost:8000/addcustomer/add", newData).then((res) => {
+    axios.post("http://localhost:8000/addcustomer/add", newData).then((res) => {
       console.log(res.data);
     });
   };
