@@ -117,13 +117,16 @@ export default function App() {
       height="3.25rem"
       bgColor="dark"
       shadow="sm"
-      borderRadius="50%"
       position="fixed"
-      right="2rem"
-      bottom="2rem"
+      right="0rem"
+      bottom="1rem"
       zIndex={99}
       color="white"
-      sx={{ cursor: "pointer" }}
+      sx={{
+        cursor: "pointer",
+        borderTopLeftRadius: "50%",
+        borderBottomLeftRadius: "50%",
+      }}
       onClick={handleConfiguratorOpen}
     >
       <Icon fontSize="small" color="inherit">

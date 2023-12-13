@@ -59,7 +59,7 @@ function ReportsBarChart({ color, title, description, date, chart }) {
           <MDTypography component="div" variant="button" color="text" fontWeight="light">
             {description}
           </MDTypography>
-          <Divider />
+          {/* <Divider /> */}
           <MDBox display="flex" alignItems="center">
             <MDTypography variant="button" color="text" lineHeight={1} sx={{ mt: 0.15, mr: 0.5 }}>
               <Icon>schedule</Icon>

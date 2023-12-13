@@ -44,6 +44,7 @@ function BillingInformation() {
   const [flightETA, setFlightETA] = useState("");
   const [departDate, setDepartDate] = useState("");
   const [departTime, setDepartTime] = useState("");
+  const [collectionThrough, setCollectionThrough] = useState("");
   const [totalSeats, setTotalSeats] = useState("");
   const [ticketAmount, setTicketAmount] = useState("");
   const [discountAmount, setDiscountAmount] = useState("");
@@ -53,7 +54,51 @@ function BillingInformation() {
   const [pickupCharges, setPickupCharges] = useState("");
   const { darkMode } = controller;
 
-  const onSubmit = (values, { resetForm }) => {
+  const onSubmit = () => {
+    const requiredFields = [
+      prnNo,
+      docNo,
+      corporate,
+      agentName,
+      bookedBy,
+      modifiedBy,
+      bookName,
+      receiptNo,
+      bookingDate,
+      bookingTime,
+      fullName,
+      email,
+      phoneNo,
+      alternatePhoneNo,
+      address,
+      pickupDate,
+      pickupTime,
+      pickupPoint,
+      pickupAddress,
+      passengerRemark,
+      area,
+      trip,
+      airportType,
+      flightNo,
+      flightDate,
+      flightETA,
+      departDate,
+      departTime,
+      collectionThrough,
+      totalSeats,
+      ticketAmount,
+      discountAmount,
+      cgstAmt,
+      sgstAmt,
+      totalAmount,
+      pickupCharges,
+    ];
+    const hasEmptyField = requiredFields.some((field) => field === "" || field === null);
+    if (hasEmptyField) {
+      alert("All fields are required");
+      return;
+    }
+
     let newData = {
       prnNo: prnNo,
       docNo: docNo,
@@ -83,6 +128,7 @@ function BillingInformation() {
       flightETA: flightETA,
       departDate: departDate,
       departTime: departTime,
+      collectionThrough: collectionThrough,
       totalSeats: totalSeats,
       ticketAmount: ticketAmount,
       discountAmount: discountAmount,
@@ -122,6 +168,7 @@ function BillingInformation() {
       setFlightETA("");
       setDepartDate("");
       setDepartTime("");
+      setCollectionThrough("");
       setTotalSeats("");
       setTicketAmount("");
       setDiscountAmount("");
@@ -176,6 +223,7 @@ function BillingInformation() {
                       flightETA: "",
                       departDate: "",
                       departTime: "",
+                      collectionThrough: "",
                       totalSeats: "",
                       ticketAmount: "",
                       discountAmount: "",
@@ -550,10 +598,22 @@ function BillingInformation() {
                                 Collection Through <span className="text-danger">*</span>
                               </Label>
                               <Label className={darkMode ? "white-text" : "black-text"}>
-                                <Input type="radio" value="Offline" /> Offline
+                                <Input
+                                  type="radio"
+                                  value="Offline"
+                                  checked={collectionThrough === "Offline"}
+                                  onChange={() => setCollectionThrough("Offline")}
+                                />{" "}
+                                Offline
                               </Label>
                               <Label className={darkMode ? "white-text" : "black-text"}>
-                                <Input type="radio" value="Online" /> Online
+                                <Input
+                                  type="radio"
+                                  value="Online"
+                                  checked={collectionThrough === "Online"}
+                                  onChange={() => setCollectionThrough("Online")}
+                                />{" "}
+                                Online
                               </Label>
                             </FormGroup>
                           </Col>
