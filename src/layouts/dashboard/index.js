@@ -11,7 +11,7 @@ import Footer from "examples/Footer";
 import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
 import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
-
+import axios from "axios";
 // Data
 import reportsBarChartData from "layouts/dashboard/data/reportsBarChartData";
 import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
@@ -19,22 +19,34 @@ import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 // Dashboard components
 import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
+import { useEffect, useState } from "react";
 
 function Dashboard() {
   const { sales, tasks } = reportsLineChartData;
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/addcustomer/find")
+      .then((res) => {
+        console.log(res.data);
+        setData(res.data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <MDBox py={3}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6} lg={6}>
+        <Grid container spacing={3} justifyContent="center" alignItems="center">
+          <Grid item xs={12} md={4} lg={4}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
-                color="success"
+                color="warning"
                 icon="weekend"
-                title="Bookings"
-                count={281}
+                title="Total Bookings"
+                count={data?.length}
                 percentage={{
                   color: "success",
                   amount: "+55%",
@@ -43,7 +55,7 @@ function Dashboard() {
               />
             </MDBox>
           </Grid>
-          <Grid item xs={12} md={6} lg={6}>
+          {/* <Grid item xs={12} md={6} lg={6}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard
                 icon="leaderboard"
@@ -56,7 +68,7 @@ function Dashboard() {
                 }}
               />
             </MDBox>
-          </Grid>
+          </Grid> */}
           {/* <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
               <ComplexStatisticsCard

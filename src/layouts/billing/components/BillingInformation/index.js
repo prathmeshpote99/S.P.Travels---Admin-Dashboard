@@ -50,8 +50,8 @@ function BillingInformation() {
   const [discountAmount, setDiscountAmount] = useState("");
   const [cgstAmt, setCgstAmt] = useState("");
   const [sgstAmt, setSgstAmt] = useState("");
-  const [totalAmount, setTotalAmount] = useState("");
   const [pickupCharges, setPickupCharges] = useState("");
+  const [totalAmount, setTotalAmount] = useState("");
   const { darkMode } = controller;
 
   const onSubmit = () => {
@@ -90,8 +90,8 @@ function BillingInformation() {
       discountAmount,
       cgstAmt,
       sgstAmt,
-      totalAmount,
       pickupCharges,
+      totalAmount,
     ];
     const hasEmptyField = requiredFields.some((field) => field === "" || field === null);
     if (hasEmptyField) {
@@ -134,8 +134,8 @@ function BillingInformation() {
       discountAmount: discountAmount,
       cgstAmt: cgstAmt,
       sgstAmt: sgstAmt,
-      totalAmount: totalAmount,
       pickupCharges: pickupCharges,
+      totalAmount: totalAmount,
     };
     axios.post("http://localhost:8000/addcustomer/add", newData).then((res) => {
       console.log(res.data);
@@ -174,8 +174,8 @@ function BillingInformation() {
       setDiscountAmount("");
       setCgstAmt("");
       setSgstAmt("");
-      setTotalAmount("");
       setPickupCharges("");
+      setTotalAmount("");
     });
   };
 
@@ -229,8 +229,8 @@ function BillingInformation() {
                       discountAmount: "",
                       cgstAmt: "",
                       sgstAmt: "",
-                      totalAmount: "",
                       pickupCharges: "",
+                      totalAmount: "",
                     }}
                     onSubmit={onSubmit}
                   >
@@ -684,20 +684,6 @@ function BillingInformation() {
                           </Col>
                           <Col md={4} sm={4} xs={12}>
                             <Label className={darkMode ? "white-text" : "black-text"}>
-                              Total Amount <span className="text-danger">*</span>
-                            </Label>
-                            <Input
-                              type="number"
-                              className="form-control"
-                              placeholder="Enter Total Amount"
-                              value={totalAmount}
-                              onChange={(e) => setTotalAmount(e.target.value)}
-                            />
-                          </Col>
-                        </Row>
-                        <Row className="mb-5">
-                          <Col md={4} sm={4} xs={12}>
-                            <Label className={darkMode ? "white-text" : "black-text"}>
                               O/L PickUp Charges <span className="text-danger">*</span>
                             </Label>
                             <Input
@@ -706,6 +692,20 @@ function BillingInformation() {
                               placeholder="Enter O/L PickUp Charges"
                               value={pickupCharges}
                               onChange={(e) => setPickupCharges(e.target.value)}
+                            />
+                          </Col>
+                        </Row>
+                        <Row className="mb-5">
+                          <Col md={4} sm={4} xs={12}>
+                            <Label className={darkMode ? "white-text" : "black-text"}>
+                              Total Amount <span className="text-danger">*</span>
+                            </Label>
+                            <Input
+                              type="number"
+                              className="form-control"
+                              placeholder="Enter Total Amount"
+                              value={totalAmount}
+                              onChange={(e) => setTotalAmount(e.target.value)}
                             />
                           </Col>
                         </Row>
