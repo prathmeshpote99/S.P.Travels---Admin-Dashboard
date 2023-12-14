@@ -20,19 +20,23 @@ import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 import { useEffect, useState } from "react";
+import { getCustometsList } from "../../services/Apis";
 
 function Dashboard() {
   const { sales, tasks } = reportsLineChartData;
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8000/addcustomer/find")
-      .then((res) => {
-        console.log(res.data);
+    const fetchData = async () => {
+      try {
+        const res = await getCustometsList();
         setData(res.data);
-      })
-      .catch((error) => console.log(error));
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
@@ -46,7 +50,7 @@ function Dashboard() {
                 color="warning"
                 icon="weekend"
                 title="Total Bookings"
-                count={data?.length}
+                count={data ? data.length : 0}
                 percentage={{
                   color: "success",
                   amount: "+55%",
