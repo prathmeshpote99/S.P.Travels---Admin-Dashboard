@@ -19,7 +19,7 @@ export default function data() {
 
   useEffect(() => {
     axios
-      .get("https://s-p-travels-admin-dashboard-backend.onrender.com/addcustomer/find")
+      .get("http://localhost:8000/addcustomer/find")
       .then((res) => {
         console.log(res.data);
         setData(res.data);
