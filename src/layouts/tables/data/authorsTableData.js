@@ -13,18 +13,22 @@ import team3 from "assets/images/team-3.jpg";
 import team4 from "assets/images/team-4.jpg";
 import { Icon } from "@mui/material";
 import { useEffect, useState } from "react";
+import { getCustometsList } from "../../../services/Apis";
 
 export default function data() {
   const [data, setData] = useState();
 
   useEffect(() => {
-    axios
-      .get("https://s-p-travels-admin-dashboard-backend.onrender.com/addcustomer/find")
-      .then((res) => {
-        console.log(res.data);
+    const fetchData = async () => {
+      try {
+        const res = await getCustometsList();
         setData(res.data);
-      })
-      .catch((error) => console.log(error));
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const Author = ({ image, prnno, name, email, phoneno }) => (

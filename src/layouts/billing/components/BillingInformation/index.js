@@ -13,6 +13,7 @@ import { CardBody, Col, Input, Label, Row } from "reactstrap";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import whiteThumb from "../../../../../src/assets/images/thumb-up-white.png";
 import darkThumb from "../../../../../src/assets/images/thumb-up-dark.png";
+import { addBooking } from "../../../../services/Apis";
 function BillingInformation() {
   const [controller, dispatch] = useMaterialUIController();
   const [modalOpen, setModalOpen] = React.useState(false);
@@ -54,7 +55,7 @@ function BillingInformation() {
   const [totalAmount, setTotalAmount] = useState("");
   const { darkMode } = controller;
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const requiredFields = [
       prnNo,
       docNo,
@@ -137,48 +138,50 @@ function BillingInformation() {
       pickupCharges: pickupCharges,
       totalAmount: totalAmount,
     };
-    axios
-      .post("https://s-p-travels-admin-dashboard-backend.onrender.com/addcustomer/add", newData)
-      .then((res) => {
-        console.log(res.data);
-        setModalOpen(true);
-        setPrnNo("");
-        setDocNo("");
-        setCorporate("");
-        setAgentName("");
-        setBookedBy("");
-        setModifiedBy("");
-        setBookName("");
-        setReceiptNo("");
-        setBookingDate("");
-        setBookingTime("");
-        setFullName("");
-        setEmail("");
-        setPhoneNo("");
-        setAlternatePhoneNo("");
-        setAddress("");
-        setPickupDate("");
-        setPickupTime("");
-        setPickupPoint("");
-        setPickupAddress("");
-        setPassengerRemark("");
-        setArea("");
-        setTrip("");
-        setAirportType("");
-        setFlightNo("");
-        setFlightDate("");
-        setFlightETA("");
-        setDepartDate("");
-        setDepartTime("");
-        setCollectionThrough("");
-        setTotalSeats("");
-        setTicketAmount("");
-        setDiscountAmount("");
-        setCgstAmt("");
-        setSgstAmt("");
-        setPickupCharges("");
-        setTotalAmount("");
-      });
+
+    const config = {
+      "Contente-Type": "multipart/form-data",
+    };
+
+    const response = await addBooking(newData, config);
+    console.log(response);
+    setModalOpen(true);
+    setPrnNo("");
+    setDocNo("");
+    setCorporate("");
+    setAgentName("");
+    setBookedBy("");
+    setModifiedBy("");
+    setBookName("");
+    setReceiptNo("");
+    setBookingDate("");
+    setBookingTime("");
+    setFullName("");
+    setEmail("");
+    setPhoneNo("");
+    setAlternatePhoneNo("");
+    setAddress("");
+    setPickupDate("");
+    setPickupTime("");
+    setPickupPoint("");
+    setPickupAddress("");
+    setPassengerRemark("");
+    setArea("");
+    setTrip("");
+    setAirportType("");
+    setFlightNo("");
+    setFlightDate("");
+    setFlightETA("");
+    setDepartDate("");
+    setDepartTime("");
+    setCollectionThrough("");
+    setTotalSeats("");
+    setTicketAmount("");
+    setDiscountAmount("");
+    setCgstAmt("");
+    setSgstAmt("");
+    setPickupCharges("");
+    setTotalAmount("");
   };
 
   return (
