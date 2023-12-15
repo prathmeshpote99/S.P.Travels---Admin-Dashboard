@@ -13,10 +13,18 @@ import team3 from "assets/images/team-3.jpg";
 import team4 from "assets/images/team-4.jpg";
 import { Icon } from "@mui/material";
 import { useEffect, useState } from "react";
-import { getCustometsList } from "../../../services/Apis";
+import { getCustometsList, deleteCustomer } from "../../../services/Apis";
 
 export default function data() {
   const [data, setData] = useState();
+
+  const deleteCustomers = async (id) => {
+    try {
+      await deleteCustomer(id);
+    } catch (error) {
+      console.error("Error deleting data:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -123,6 +131,7 @@ export default function data() {
               variant="caption"
               color="text"
               fontWeight="medium"
+              onClick={() => deleteCustomers(row._id)}
             >
               <Icon color="error">delete</Icon>
             </MDTypography>
