@@ -8,3 +8,7 @@ export const addBooking = async (data, header) => {
 export const getCustometsList = async (data, header) => {
   return await commonrequest("GET", `${BASE_URL}/addcustomer/find`, data, header);
 };
+
+export const deleteCustomer = async (id) => {
+  return await commonrequest("DELETE", `${BASE_URL}/addcustomer/delete/${id}`, null);
+};
