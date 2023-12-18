@@ -8,7 +8,7 @@ import MDTypography from "components/MDTypography";
 import { Formik, Form } from "formik";
 import { useMaterialUIController } from "context";
 // Billing page components
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CardBody, Col, Input, Label, Row } from "reactstrap";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import whiteThumb from "../../../../../src/assets/images/thumb-up-white.png";
@@ -47,13 +47,28 @@ function BillingInformation() {
   const [departTime, setDepartTime] = useState("");
   const [collectionThrough, setCollectionThrough] = useState("");
   const [totalSeats, setTotalSeats] = useState("");
-  const [ticketAmount, setTicketAmount] = useState("");
-  const [discountAmount, setDiscountAmount] = useState("");
-  const [cgstAmt, setCgstAmt] = useState("");
-  const [sgstAmt, setSgstAmt] = useState("");
-  const [pickupCharges, setPickupCharges] = useState("");
-  const [totalAmount, setTotalAmount] = useState("");
+  const [ticketAmount, setTicketAmount] = useState(0);
+  const [discountAmount, setDiscountAmount] = useState(0);
+  const [cgstAmt, setCgstAmt] = useState(0);
+  const [sgstAmt, setSgstAmt] = useState(0);
+  const [pickupCharges, setPickupCharges] = useState(0);
+  const [totalAmount, setTotalAmount] = useState(0);
   const { darkMode } = controller;
+
+  useEffect(() => {
+    if (totalSeats !== "" && parseFloat(totalSeats) !== 0) {
+      const calculatedTicketAmount = parseFloat(totalSeats) * 1500;
+      const updatedTicketAmount =
+        calculatedTicketAmount - discountAmount - cgstAmt - sgstAmt - pickupCharges;
+      const updatedTotalAmount = updatedTicketAmount > 0 ? updatedTicketAmount : 0;
+
+      setTicketAmount(updatedTicketAmount);
+      setTotalAmount(updatedTotalAmount);
+    } else {
+      setTicketAmount(0);
+      setTotalAmount(0);
+    }
+  }, [totalSeats, discountAmount, cgstAmt, sgstAmt, pickupCharges]);
 
   const onSubmit = async () => {
     const requiredFields = [
@@ -518,7 +533,7 @@ function BillingInformation() {
                               onChange={(e) => setTrip(e.target.value)}
                               className="form-control"
                             >
-                              <option label="Select A Trip" />
+                              <option disabled value="" label="Select A Trip" />
                               <option value="Nashik To Mumbai" label="Nashik To Mumbai" />
                               <option value="Mumbai To Nashik" label="Mumbai To Nashik" />
                             </select>
@@ -532,7 +547,7 @@ function BillingInformation() {
                               value={airportType}
                               onChange={(e) => setAirportType(e.target.value)}
                             >
-                              <option value="" label="Select Airport Type" />
+                              <option disabled value="" label="Select Airport Type" />
                               <option value="International" label="International" />
                               <option value="Domestic" label="Domestic" />
                             </select>
@@ -629,19 +644,24 @@ function BillingInformation() {
                             <Label className={darkMode ? "white-text" : "black-text"}>
                               Total Seats <span className="text-danger">*</span>
                             </Label>
-                            <Input
-                              type="number"
+                            <select
                               className="form-control"
-                              placeholder="Enter Total Seats"
                               value={totalSeats}
                               onChange={(e) => setTotalSeats(e.target.value)}
-                            />
+                            >
+                              <option disabled value="" label="Choose total seats" />
+                              <option value="1" label="1" />
+                              <option value="2" label="2" />
+                              <option value="3" label="3" />
+                              <option value="4" label="4" />
+                            </select>
                           </Col>
                           <Col md={4} sm={4} xs={12}>
                             <Label className={darkMode ? "white-text" : "black-text"}>
                               Ticket Amount <span className="text-danger">*</span>
                             </Label>
                             <Input
+                              readOnly
                               type="number"
                               className="form-control"
                               placeholder="Enter Ticket Amount"
@@ -706,6 +726,7 @@ function BillingInformation() {
                               Total Amount <span className="text-danger">*</span>
                             </Label>
                             <Input
+                              readOnly
                               type="number"
                               className="form-control"
                               placeholder="Enter Total Amount"
