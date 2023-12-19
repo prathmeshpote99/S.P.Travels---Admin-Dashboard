@@ -56,6 +56,8 @@ function BillingInformation() {
   const { darkMode } = controller;
 
   useEffect(() => {
+    const preloadImage = new Image();
+    preloadImage.src = darkMode ? whiteThumb : darkThumb;
     const parsedTotalSeats = parseFloat(totalSeats);
     const parsedDiscountAmount = parseFloat(discountAmount);
     const parsedCgstAmt = parseFloat(cgstAmt);
@@ -79,7 +81,7 @@ function BillingInformation() {
       setTicketAmount(0);
       setTotalAmount(0);
     }
-  }, [totalSeats, discountAmount, cgstAmt, sgstAmt, pickupCharges]);
+  }, [totalSeats, discountAmount, cgstAmt, sgstAmt, pickupCharges, darkMode]);
 
   const onSubmit = async () => {
     const requiredFields = [
@@ -774,6 +776,9 @@ function BillingInformation() {
                 <img
                   className="thumb-img animate-fade-in animate-jump animate-once animate-ease-in"
                   src={darkMode ? whiteThumb : darkThumb}
+                  srcSet={`${darkMode ? whiteThumb : darkThumb} 2x`}
+                  sizes="(max-width: 600px) 300px, (max-width: 1200px) 600px, 900px"
+                  alt="Thumb"
                 />
               </div>
               <div className="thumb-image-div mt-4 mb-1">
