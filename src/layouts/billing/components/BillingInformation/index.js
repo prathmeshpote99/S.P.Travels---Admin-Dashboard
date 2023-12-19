@@ -56,11 +56,22 @@ function BillingInformation() {
   const { darkMode } = controller;
 
   useEffect(() => {
-    if (totalSeats !== "" && parseFloat(totalSeats) !== 0) {
-      const calculatedTicketAmount = parseFloat(totalSeats) * 1500;
+    const parsedTotalSeats = parseFloat(totalSeats);
+    const parsedDiscountAmount = parseFloat(discountAmount);
+    const parsedCgstAmt = parseFloat(cgstAmt);
+    const parsedSgstAmt = parseFloat(sgstAmt);
+    const parsedPickupCharges = parseFloat(pickupCharges);
+
+    if (!isNaN(parsedTotalSeats) && parsedTotalSeats !== 0) {
+      const calculatedTicketAmount = parsedTotalSeats * 1500;
       const updatedTicketAmount =
-        calculatedTicketAmount - discountAmount - cgstAmt - sgstAmt - pickupCharges;
-      const updatedTotalAmount = updatedTicketAmount > 0 ? updatedTicketAmount : 0;
+        calculatedTicketAmount -
+        (isNaN(parsedDiscountAmount) ? 0 : parsedDiscountAmount) +
+        (isNaN(parsedCgstAmt) ? 0 : parsedCgstAmt) +
+        (isNaN(parsedSgstAmt) ? 0 : parsedSgstAmt) +
+        (isNaN(parsedPickupCharges) ? 0 : parsedPickupCharges);
+
+      const updatedTotalAmount = Math.max(updatedTicketAmount, 0);
 
       setTicketAmount(updatedTicketAmount);
       setTotalAmount(updatedTotalAmount);
