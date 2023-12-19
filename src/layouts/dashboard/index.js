@@ -1,5 +1,6 @@
 // @mui material components
 import Grid from "@mui/material/Grid";
+import { Spinner } from "reactstrap";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -21,18 +22,22 @@ import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 import { useEffect, useState } from "react";
 import { getCustometsList } from "../../services/Apis";
+import { Card } from "@mui/material";
 
 function Dashboard() {
   const { sales, tasks } = reportsLineChartData;
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await getCustometsList();
         setData(res.data);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setLoading(false);
       }
     };
 
@@ -46,17 +51,42 @@ function Dashboard() {
         <Grid container spacing={3} justifyContent="center" alignItems="center">
           <Grid item xs={12} md={4} lg={4}>
             <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="warning"
-                icon="weekend"
-                title="Total Bookings"
-                count={data ? data.length : 0}
-                percentage={{
-                  color: "success",
-                  amount: "+55%",
-                  label: "than lask week",
-                }}
-              />
+              {loading ? (
+                <Card>
+                  <ComplexStatisticsCard
+                    color="warning"
+                    icon="weekend"
+                    title="Total Bookings"
+                    count={
+                      <Spinner
+                        type="grow"
+                        className="mt-2 mb-1"
+                        color="warning"
+                        style={{ width: "1.5rem", height: "1.5rem" }}
+                      />
+                    }
+                    percentage={{
+                      color: "success",
+                      amount: "+55%",
+                      label: "than lask week",
+                    }}
+                  />
+                </Card>
+              ) : (
+                <>
+                  <ComplexStatisticsCard
+                    color="warning"
+                    icon="weekend"
+                    title="Total Bookings"
+                    count={data ? data.length : 0}
+                    percentage={{
+                      color: "success",
+                      amount: "+55%",
+                      label: "than lask week",
+                    }}
+                  />
+                </>
+              )}
             </MDBox>
           </Grid>
           {/* <Grid item xs={12} md={6} lg={6}>
