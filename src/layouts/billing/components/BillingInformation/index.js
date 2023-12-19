@@ -574,7 +574,7 @@ function BillingInformation() {
                               className="form-control"
                               placeholder="Enter Flight Number"
                               value={flightNo}
-                              onChange={(e) => setFlightNo(e.target.value)}
+                              onChange={(e) => setFlightNo(e.target.value.toUpperCase())}
                             />
                           </Col>
                         </Row>
