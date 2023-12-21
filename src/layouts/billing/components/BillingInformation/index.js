@@ -54,6 +54,7 @@ function BillingInformation() {
   const [pickupCharges, setPickupCharges] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
   const { darkMode } = controller;
+  const currentDate = new Date().toISOString().split("T")[0];
 
   useEffect(() => {
     const preloadImage = new Image();
@@ -383,6 +384,7 @@ function BillingInformation() {
                               className="form-control"
                               value={bookingDate}
                               onChange={(e) => setBookingDate(e.target.value)}
+                              min={currentDate}
                             />
                           </Col>
                           <Col md={4} sm={4} xs={12}>
@@ -472,6 +474,7 @@ function BillingInformation() {
                               className="form-control"
                               value={pickupDate}
                               onChange={(e) => setPickupDate(e.target.value)}
+                              min={currentDate}
                             />
                           </Col>
                           <Col md={4} sm={4} xs={12}>
@@ -588,6 +591,7 @@ function BillingInformation() {
                               className="form-control"
                               value={flightDate}
                               onChange={(e) => setFlightDate(e.target.value)}
+                              min={currentDate}
                             />
                           </Col>
                           <Col md={4} sm={4} xs={12}>
@@ -610,6 +614,7 @@ function BillingInformation() {
                               className="form-control"
                               value={departDate}
                               onChange={(e) => setDepartDate(e.target.value)}
+                              min={currentDate}
                             />
                           </Col>
                         </Row>
