@@ -19,10 +19,14 @@ export default function data() {
   const [data, setData] = useState();
 
   const deleteCustomers = async (id) => {
-    try {
-      await deleteCustomer(id);
-    } catch (error) {
-      console.error("Error deleting data:", error);
+    const confirmed = window.confirm("Are you sure you want to delete this customer?");
+    if (confirmed) {
+      try {
+        await deleteCustomer(id);
+        setData((prevData) => prevData.filter((customer) => customer._id !== id));
+      } catch (error) {
+        console.error("Error deleting data:", error);
+      }
     }
   };
 
