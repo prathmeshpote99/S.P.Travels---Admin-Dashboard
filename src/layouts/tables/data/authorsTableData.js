@@ -23,9 +23,11 @@ export default function data() {
     if (confirmed) {
       try {
         await deleteCustomer(id);
-        setData((prevData) => prevData.filter((customer) => customer._id !== id));
+        const updatedData = await getCustometsList();
+        setData(updatedData.data);
       } catch (error) {
         console.error("Error deleting data:", error);
+        alert("Failed to delete customer. Please try again.");
       }
     }
   };
