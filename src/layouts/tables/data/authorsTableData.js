@@ -17,6 +17,7 @@ import { getCustometsList, deleteCustomer } from "../../../services/Apis";
 
 export default function data() {
   const [data, setData] = useState();
+  const [loading, setLoading] = useState(true);
 
   const deleteCustomers = async (id) => {
     const confirmed = window.confirm("Are you sure you want to delete this customer?");
@@ -37,6 +38,7 @@ export default function data() {
       try {
         const res = await getCustometsList();
         setData(res.data);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
