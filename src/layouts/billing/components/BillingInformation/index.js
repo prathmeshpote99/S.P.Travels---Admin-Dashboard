@@ -169,7 +169,7 @@ function BillingInformation() {
     };
 
     const config = {
-      "Contente-Type": "multipart/form-data",
+      "Content-Type": "multipart/form-data",
     };
 
     const response = await addBooking(newData, config);
