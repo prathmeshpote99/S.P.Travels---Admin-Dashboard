@@ -68,3 +68,15 @@ body {
   background-size: cover;
 }
 
+.userDetail_modal {
+  z-index: 9999;
+}
+
+.modal_box {
+  border: 1px solid rgb(211, 211, 211);
+  border-radius: 5px;
+}
+
+hr {
+  color: rgb(88, 88, 88);
+}

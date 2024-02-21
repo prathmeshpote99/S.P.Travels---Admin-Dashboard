@@ -168,11 +168,12 @@ function BillingInformation() {
       totalAmount: totalAmount,
     };
 
-    const config = {
-      "Content-Type": "multipart/form-data",
-    };
+    // const config = {
+    //   "Content-Type": "multipart/form-data",
+    // };
 
-    const response = await addBooking(newData, config);
+    // const response = await addBooking(newData, config);
+    const response = await addBooking(newData);
     console.log(response);
     setModalOpen(true);
     setPrnNo("");
