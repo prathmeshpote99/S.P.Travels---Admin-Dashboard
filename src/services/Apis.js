@@ -9,6 +9,14 @@ export const getCustometsList = async (data, header) => {
   return await commonrequest("GET", `${BASE_URL}/addcustomer/find`, data, header);
 };
 
+export const getCustomerById = async (id) => {
+  return await commonrequest("GET", `${BASE_URL}/addcustomer/user/${id}`);
+};
+
+export const updateCustomer = async (id, data, header) => {
+  return await commonrequest("PUT", `${BASE_URL}/addcustomer/update/${id}`, data, header);
+};
+
 export const deleteCustomer = async (id, header) => {
   return await commonrequest("DELETE", `${BASE_URL}/addcustomer/delete/${id}`, header);
 };

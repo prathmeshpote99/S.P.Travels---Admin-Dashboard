@@ -24,6 +24,7 @@
 import Dashboard from "layouts/dashboard";
 import Tables from "layouts/tables";
 import Billing from "layouts/billing";
+import EditForm from "./layouts/billing/EditForm";
 import RTL from "layouts/rtl";
 import Notifications from "layouts/notifications";
 import Profile from "layouts/profile";
@@ -57,6 +58,10 @@ const routes = [
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/customer-lists",
     component: <Tables />,
+  },
+  {
+    route: "/customer-profile/edit/:id",
+    component: <EditForm />,
   },
   // {
   //   type: "collapse",
