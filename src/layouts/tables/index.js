@@ -25,6 +25,7 @@ import { Col, Row, Spinner } from "reactstrap";
 import { useEffect, useState } from "react";
 import { getCustometsList } from "services/Apis";
 import { deleteCustomer } from "services/Apis";
+import { useNavigate } from "react-router-dom";
 
 function Tables() {
   const { columns, rows } = authorsTableData();
@@ -35,6 +36,8 @@ function Tables() {
   const { darkMode } = controller;
   const [showModal, setShowModal] = useState(false);
   const [selectedUserData, setSelectedUserData] = useState(null);
+
+  const navigate = useNavigate();
 
   const handleViewUser = (userData) => {
     setSelectedUserData(userData);
@@ -240,6 +243,7 @@ function Tables() {
                                     variant="caption"
                                     color="text"
                                     fontWeight="medium"
+                                    onClick={() => navigate(`/customer-profile/edit/${row._id}`)}
                                   >
                                     <Icon>edit</Icon>
                                   </MDTypography>
