@@ -73,7 +73,7 @@ function Tables() {
       try {
         const res = await getCustometsList();
         setData(res.data);
-        setLoading(true);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
