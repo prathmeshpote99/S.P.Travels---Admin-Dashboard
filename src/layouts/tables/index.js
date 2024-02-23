@@ -27,7 +27,6 @@ import { getCustometsList } from "services/Apis";
 import { deleteCustomer } from "services/Apis";
 import { useNavigate } from "react-router-dom";
 import Loader from "components/Loader/TypeeriterLoader";
-import CircleLoader from "components/Loader/CircleLoader";
 
 function Tables() {
   const { columns, rows } = authorsTableData();
@@ -111,7 +110,7 @@ function Tables() {
                       color={darkMode ? "success" : "dark"}
                       style={{ width: "1.5rem", height: "1.5rem" }}
                     /> */}
-                    {darkMode ? <Loader /> : <CircleLoader />}
+                    <Loader />
                   </div>
                 ) : (
                   <>
