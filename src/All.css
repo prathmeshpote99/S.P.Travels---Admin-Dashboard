@@ -358,3 +358,16 @@ hr {
       52px 10px 0 var(--key), 60px 10px 0 var(--key), 68px 10px 0 var(--key), 83px 10px 0 var(--key);
   }
 }
+
+.gif_div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.gif {
+  padding-top: 20%;
+  padding-bottom: 20%;
+  width: 30%;
+  opacity: 30%;
+  height: 20%;
+}

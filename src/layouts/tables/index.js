@@ -26,7 +26,8 @@ import { useEffect, useState } from "react";
 import { getCustometsList } from "services/Apis";
 import { deleteCustomer } from "services/Apis";
 import { useNavigate } from "react-router-dom";
-import Loader from "components/Loader/TypeeriterLoader";
+// import Loader from "components/Loader/TypeeriterLoader";
+import Loader from "../../assets/images/icons/waiting-room-unscreen.gif";
 
 function Tables() {
   const { columns, rows } = authorsTableData();
@@ -72,7 +73,7 @@ function Tables() {
       try {
         const res = await getCustometsList();
         setData(res.data);
-        setLoading(false);
+        setLoading(true);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -110,7 +111,10 @@ function Tables() {
                       color={darkMode ? "success" : "dark"}
                       style={{ width: "1.5rem", height: "1.5rem" }}
                     /> */}
-                    <Loader />
+                    {/* <Loader /> */}
+                    <div className="gif_div">
+                      <img className="gif" src={Loader} alt="" />
+                    </div>
                   </div>
                 ) : (
                   <>
