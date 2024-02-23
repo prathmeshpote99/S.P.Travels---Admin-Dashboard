@@ -26,6 +26,8 @@ import { useEffect, useState } from "react";
 import { getCustometsList } from "services/Apis";
 import { deleteCustomer } from "services/Apis";
 import { useNavigate } from "react-router-dom";
+import Loader from "components/Loader/TypeeriterLoader";
+import CircleLoader from "components/Loader/CircleLoader";
 
 function Tables() {
   const { columns, rows } = authorsTableData();
@@ -104,11 +106,12 @@ function Tables() {
               <MDBox pt={3}>
                 {loading ? (
                   <div className="mb-4 d-flex justify-content-center align-items-center">
-                    <Spinner
+                    {/* <Spinner
                       className="mt-2 mb-1"
                       color={darkMode ? "success" : "dark"}
                       style={{ width: "1.5rem", height: "1.5rem" }}
-                    />
+                    /> */}
+                    {darkMode ? <Loader /> : <CircleLoader />}
                   </div>
                 ) : (
                   <>
