@@ -371,3 +371,11 @@ hr {
   opacity: 30%;
   height: 20%;
 }
+
+.table-dark {
+  --bs-table-bg: transparent !important;
+}
+
+.css-uik85l-MuiAvatar-root {
+  color: #344767 !important;
+}
