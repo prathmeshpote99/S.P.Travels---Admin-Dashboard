@@ -126,7 +126,7 @@ function Tables() {
                       noEndBorder
                     /> */}
                     <MDBox>
-                      <Table className="p-5" variant={darkMode ? "dark" : ""} responsive>
+                      <Table className="p-5" responsive variant="dark">
                         <thead>
                           <tr>
                             <th>
