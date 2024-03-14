@@ -2,6 +2,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: "Sen", sans-serif !important;
+  overflow-x: hidden !important;
 }
 
 .black-text {
@@ -382,4 +383,11 @@ hr {
 
 .css-1tgwni3 {
   color: rgb(52, 71, 103) !important;
+}
+
+.alertbox {
+  float: right !important;
+  position: absolute;
+  top: 2%;
+  width: 100%;
 }

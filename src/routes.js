@@ -33,6 +33,7 @@ import SignUp from "layouts/authentication/sign-up";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
+import ProtectedRoutes from "utils/ProtectedRoutes";
 
 const routes = [
   {
@@ -41,7 +42,11 @@ const routes = [
     key: "dashboard",
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
-    component: <Dashboard />,
+    component: (
+      <ProtectedRoutes>
+        <Dashboard />
+      </ProtectedRoutes>
+    ),
   },
   {
     type: "collapse",
@@ -49,7 +54,11 @@ const routes = [
     key: "billing",
     icon: <Icon fontSize="small">confirmation_number</Icon>,
     route: "/ticket-booking",
-    component: <Billing />,
+    component: (
+      <ProtectedRoutes>
+        <Billing />
+      </ProtectedRoutes>
+    ),
   },
   {
     type: "collapse",
@@ -57,11 +66,19 @@ const routes = [
     key: "tables",
     icon: <Icon fontSize="small">receipt_long</Icon>,
     route: "/customer-lists",
-    component: <Tables />,
+    component: (
+      <ProtectedRoutes>
+        <Tables />
+      </ProtectedRoutes>
+    ),
   },
   {
     route: "/customer-profile/edit/:id",
-    component: <EditForm />,
+    component: (
+      <ProtectedRoutes>
+        <EditForm />
+      </ProtectedRoutes>
+    ),
   },
   // {
   //   type: "collapse",
@@ -87,22 +104,26 @@ const routes = [
   //   route: "/profile",
   //   component: <Profile />,
   // },
-  // {
-  //   type: "collapse",
-  //   name: "Sign In",
-  //   key: "sign-in",
-  //   icon: <Icon fontSize="small">login</Icon>,
-  //   route: "/authentication/sign-in",
-  //   component: <SignIn />,
-  // },
-  // {
-  //   type: "collapse",
-  //   name: "Sign Up",
-  //   key: "sign-up",
-  //   icon: <Icon fontSize="small">assignment</Icon>,
-  //   route: "/authentication/sign-up",
-  //   component: <SignUp />,
-  // },
+  {
+    // type: "collapse",
+    // name: "Sign In",
+    // key: "sign-in",
+    // icon: <Icon fontSize="small">login</Icon>,
+    route: "/authentication/sign-in",
+    component: <SignIn />,
+  },
+  {
+    // type: "collapse",
+    // name: "Sign Up",
+    // key: "sign-up",
+    // icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/authentication/sign-up",
+    component: (
+      <ProtectedRoutes>
+        <SignUp />
+      </ProtectedRoutes>
+    ),
+  },
 ];
 
 export default routes;

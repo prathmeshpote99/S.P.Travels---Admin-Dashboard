@@ -8,24 +8,52 @@ import Grid from "@mui/material/Grid";
 import MDBox from "components/MDBox";
 
 // Material Dashboard 2 React example components
-import DefaultNavbar from "examples/Navbars/DefaultNavbar";
+// import DefaultNavbar from "examples/Navbars/DefaultNavbar";
 import PageLayout from "examples/LayoutContainers/PageLayout";
 
 // Authentication pages components
 import Footer from "layouts/authentication/components/Footer";
 
-function BasicLayout({ image, children }) {
+function BasicLayout({ image, children, videoSrc }) {
   return (
     <PageLayout>
-      <DefaultNavbar
+      {/* <DefaultNavbar
         action={{
           type: "external",
           route: "https://creative-tim.com/product/material-dashboard-react",
           label: "free download",
           color: "dark",
         }}
-      />
+      /> */}
       <MDBox
+        position="absolute"
+        width="100%"
+        minHeight="100vh"
+        sx={{
+          overflow: "hidden",
+        }}
+      >
+        <video
+          autoPlay
+          loop
+          muted
+          style={{
+            position: "absolute",
+            width: "100%",
+            left: "50%",
+            top: "50%",
+            height: "100%",
+            opacity: "70%",
+            objectFit: "cover",
+            transform: "translate(-50%, -50%)",
+            zIndex: "-1",
+          }}
+        >
+          <source src={videoSrc} type="video/mp4" />
+        </video>
+      </MDBox>
+
+      {/* <MDBox
         position="absolute"
         width="100%"
         minHeight="100vh"
@@ -40,7 +68,7 @@ function BasicLayout({ image, children }) {
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
-      />
+      /> */}
       <MDBox px={1} width="100%" height="100vh" mx="auto">
         <Grid container spacing={1} justifyContent="center" alignItems="center" height="100%">
           <Grid item xs={11} sm={9} md={5} lg={4} xl={3}>
@@ -55,6 +83,7 @@ function BasicLayout({ image, children }) {
 
 // Typechecking props for the BasicLayout
 BasicLayout.propTypes = {
+  videoSrc: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
 };
