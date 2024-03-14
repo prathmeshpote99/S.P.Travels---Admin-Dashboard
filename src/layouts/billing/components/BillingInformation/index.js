@@ -14,6 +14,8 @@ import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import whiteThumb from "../../../../../src/assets/images/thumb-up-white.png";
 import darkThumb from "../../../../../src/assets/images/thumb-up-dark.png";
 import { addBooking } from "../../../../services/Apis";
+import { Alert } from "reactstrap";
+
 function BillingInformation() {
   const [controller, dispatch] = useMaterialUIController();
   const [modalOpen, setModalOpen] = React.useState(false);
@@ -55,6 +57,7 @@ function BillingInformation() {
   const [totalAmount, setTotalAmount] = useState(0);
   const { darkMode } = controller;
   const currentDate = new Date().toISOString().split("T")[0];
+  const [alert, setAlert] = useState({ visible: false, message: "", color: "" });
 
   useEffect(() => {
     const preloadImage = new Image();
@@ -125,7 +128,10 @@ function BillingInformation() {
     ];
     const hasEmptyField = requiredFields.some((field) => field === "" || field === null);
     if (hasEmptyField) {
-      alert("All fields are required");
+      setAlert({ visible: true, message: "All fields are required 😐", color: "warning" });
+      setTimeout(() => {
+        setAlert({ visible: false, message: "", color: "" });
+      }, 2000);
       return;
     }
 
@@ -217,6 +223,9 @@ function BillingInformation() {
   return (
     <React.Fragment>
       <Card id="delete-account">
+        <div className="alertbox_form d-flex justify-content-end align-items-center fs-6">
+          {alert.visible && <Alert color={alert.color}>{alert.message}</Alert>}
+        </div>
         <MDBox pt={3} px={2}>
           <MDTypography align="center" variant="h6" fontWeight="medium">
             New Ticket Booking
