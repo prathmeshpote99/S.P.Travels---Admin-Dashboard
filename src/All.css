@@ -391,3 +391,35 @@ hr {
   top: 2%;
   width: 100%;
 }
+
+.alertbox_signup {
+  float: right !important;
+  position: absolute;
+  top: 2%;
+  width: 100%;
+  z-index: 4 !important;
+}
+
+.alertbox_editform {
+  float: right !important;
+  position: sticky !important;
+  top: 15%;
+  width: 100%;
+  z-index: 9999 !important;
+}
+
+.alertbox_form {
+  float: right !important;
+  position: sticky !important;
+  top: 15%;
+  width: 100%;
+  z-index: 9999 !important;
+}
+
+.alertbox_list {
+  float: right !important;
+  position: absolute;
+  top: 2%;
+  width: 100%;
+  z-index: 99999 !important;
+}

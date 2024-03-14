@@ -23,6 +23,7 @@ import whiteThumb from "../../../src/assets/images/thumb-up-white.png";
 import darkThumb from "../../../src/assets/images/thumb-up-dark.png";
 import { getCustomerById, updateCustomer } from "../../services/Apis";
 import { useParams } from "react-router-dom";
+import { Alert } from "reactstrap";
 
 function EditForm() {
   const [controller, dispatch] = useMaterialUIController();
@@ -65,6 +66,7 @@ function EditForm() {
   const [totalAmount, setTotalAmount] = useState(0);
   const { darkMode } = controller;
   const currentDate = new Date().toISOString().split("T")[0];
+  const [alert, setAlert] = useState({ visible: true, message: "", color: "" });
 
   const userId = useParams().id;
 
@@ -186,7 +188,10 @@ function EditForm() {
     ];
     const hasEmptyField = requiredFields.some((field) => field === "" || field === null);
     if (hasEmptyField) {
-      alert("All fields are required");
+      setAlert({ visible: true, message: "All fields are required 😐", color: "warning" });
+      setTimeout(() => {
+        setAlert({ visible: false, message: "", color: "" });
+      }, 2000);
       return;
     }
 
@@ -276,601 +281,606 @@ function EditForm() {
   };
 
   return (
-    <DashboardLayout>
-      <DashboardNavbar />
-      <MDBox mt={8}>
-        <MDBox mb={3}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={12}>
-              <Card id="delete-account">
-                <MDBox pt={3} px={2}>
-                  <MDTypography align="center" variant="h6" fontWeight="medium">
-                    Update Cutomer
-                  </MDTypography>
-                </MDBox>
-                <Divider />
-                <div className="container mb-3">
-                  <Row>
-                    <Col>
-                      <Card>
-                        <CardBody>
-                          <Formik
-                            initialValues={{
-                              prnNo: "",
-                              docNo: "",
-                              corporate: "",
-                              agentName: "",
-                              bookedBy: "",
-                              modifiedBy: "",
-                              bookName: "",
-                              receiptNo: "",
-                              bookingDate: "",
-                              bookingTime: "",
-                              fullName: "",
-                              email: "",
-                              phoneNo: "",
-                              alternatePhoneNo: "",
-                              address: "",
-                              pickupDate: "",
-                              pickupTime: "",
-                              pickupPoint: "",
-                              pickupAddress: "",
-                              passengerRemark: "",
-                              area: "",
-                              trip: "",
-                              airportType: "",
-                              flightNo: "",
-                              flightDate: "",
-                              flightETA: "",
-                              departDate: "",
-                              departTime: "",
-                              collectionThrough: "",
-                              totalSeats: "",
-                              ticketAmount: "",
-                              discountAmount: "",
-                              cgstAmt: "",
-                              sgstAmt: "",
-                              pickupCharges: "",
-                              totalAmount: "",
-                            }}
-                            onSubmit={onSubmit}
-                          >
-                            <Form>
-                              <div className="container">
-                                <Row className="mb-5">
-                                  <Col md={6} sm={6} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      PRN No <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="number"
-                                      className="form-control"
-                                      placeholder="Enter PRN Number"
-                                      value={prnNo}
-                                      onChange={(e) => setPrnNo(e.target.value)}
-                                    />
-                                  </Col>
-                                  <Col md={6} sm={6} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Doc No <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="number"
-                                      className="form-control"
-                                      placeholder="Enter Doc Number"
-                                      value={docNo}
-                                      onChange={(e) => setDocNo(e.target.value)}
-                                    />
-                                  </Col>
-                                </Row>
-                                <Divider />
-                                <Row className="mb-2">
-                                  <Col md={6} sm={6} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Corporate
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="text"
-                                      className="form-control"
-                                      placeholder="Enter Corporate"
-                                      value={corporate}
-                                      onChange={(e) => setCorporate(e.target.value)}
-                                    />
-                                  </Col>
-                                  <Col md={6} sm={6} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Agent Name
-                                      <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="text"
-                                      className="form-control"
-                                      placeholder="Enter Agent Name"
-                                      value={agentName}
-                                      onChange={(e) => setAgentName(e.target.value)}
-                                    />
-                                  </Col>
-                                </Row>
-                                <Row className="mb-2">
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Booked By <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      placeholder="Booked By"
-                                      className="form-control"
-                                      value={bookedBy}
-                                      onChange={(e) => setBookedBy(e.target.value)}
-                                    />
-                                  </Col>
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Modify By <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="text"
-                                      className="form-control"
-                                      placeholder="Modify By"
-                                      value={modifiedBy}
-                                      onChange={(e) => setModifiedBy(e.target.value)}
-                                    />
-                                  </Col>
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Book Name <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="text"
-                                      className="form-control"
-                                      placeholder="Book Name"
-                                      value={bookName}
-                                      onChange={(e) => setBookName(e.target.value)}
-                                    />
-                                  </Col>
-                                </Row>
-                                <Row className="mb-5">
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Receipt No <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="number"
-                                      placeholder="Enter Receipt No"
-                                      className="form-control"
-                                      value={receiptNo}
-                                      onChange={(e) => setReceiptNo(e.target.value)}
-                                    />
-                                  </Col>
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Booking Date <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="date"
-                                      className="form-control"
-                                      value={bookingDate}
-                                      onChange={(e) => setBookingDate(e.target.value)}
-                                      min={currentDate}
-                                    />
-                                  </Col>
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Booking Time <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="time"
-                                      className="form-control"
-                                      value={bookingTime}
-                                      onChange={(e) => setBookingTime(e.target.value)}
-                                    />
-                                  </Col>
-                                </Row>
-                                <Divider />
-                                <Row className="mb-2">
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Full Name <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="text"
-                                      className="form-control"
-                                      placeholder="Enter Full Name"
-                                      value={fullName}
-                                      onChange={(e) => setFullName(e.target.value)}
-                                    />
-                                  </Col>
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Email <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="email"
-                                      className="form-control"
-                                      placeholder="Enter Email"
-                                      value={email}
-                                      onChange={(e) => setEmail(e.target.value)}
-                                    />
-                                  </Col>
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Phone No <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="number"
-                                      className="form-control"
-                                      placeholder="Enter Phone Number"
-                                      value={phoneNo}
-                                      onChange={(e) => setPhoneNo(e.target.value)}
-                                    />
-                                  </Col>
-                                </Row>
-                                <Row className="mb-2">
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Alternate Phone No <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="number"
-                                      className="form-control"
-                                      placeholder="Enter Alternate Phone Number"
-                                      value={alternatePhoneNo}
-                                      onChange={(e) => setAlternatePhoneNo(e.target.value)}
-                                    />
-                                  </Col>
-                                  <Col md={8} sm={8} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Address <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="text"
-                                      className="form-control"
-                                      placeholder="Enter Address"
-                                      value={address}
-                                      onChange={(e) => setAddress(e.target.value)}
-                                    />
-                                  </Col>
-                                </Row>
-                                <Row className="mb-2">
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      PickUp Date <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="date"
-                                      className="form-control"
-                                      value={pickupDate}
-                                      onChange={(e) => setPickupDate(e.target.value)}
-                                      min={currentDate}
-                                    />
-                                  </Col>
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      PickUp Time <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="time"
-                                      className="form-control"
-                                      value={pickupTime}
-                                      onChange={(e) => setPickupTime(e.target.value)}
-                                    />
-                                  </Col>
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      PickUp Point <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="text"
-                                      className="form-control"
-                                      placeholder="Enter Pickup Point"
-                                      value={pickupPoint}
-                                      onChange={(e) => setPickupPoint(e.target.value)}
-                                    />
-                                  </Col>
-                                </Row>
-                                <Row className="mb-2">
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      PickUp Address <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="text"
-                                      className="form-control"
-                                      placeholder="Enter Pickup Address"
-                                      value={pickupAddress}
-                                      onChange={(e) => setPickupAddress(e.target.value)}
-                                    />
-                                  </Col>
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Passenger Remark <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="text"
-                                      className="form-control"
-                                      placeholder="Enter Passenger Remark"
-                                      value={passengerRemark}
-                                      onChange={(e) => setPassengerRemark(e.target.value)}
-                                    />
-                                  </Col>
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Area <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="text"
-                                      className="form-control"
-                                      placeholder="Enter Area"
-                                      value={area}
-                                      onChange={(e) => setArea(e.target.value)}
-                                    />
-                                  </Col>
-                                </Row>
-                                <Row className="mb-2">
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Trip <span className="text-danger">*</span>
-                                    </Label>
-                                    <select
-                                      value={trip}
-                                      onChange={(e) => setTrip(e.target.value)}
-                                      className="form-control"
-                                    >
-                                      <option disabled value="" label="Select A Trip" />
-                                      <option value="Nashik To Mumbai" label="Nashik To Mumbai" />
-                                      <option value="Mumbai To Nashik" label="Mumbai To Nashik" />
-                                    </select>
-                                  </Col>
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Airport Type <span className="text-danger">*</span>
-                                    </Label>
-                                    <select
-                                      className="form-control"
-                                      value={airportType}
-                                      onChange={(e) => setAirportType(e.target.value)}
-                                    >
-                                      <option disabled value="" label="Select Airport Type" />
-                                      <option value="International" label="International" />
-                                      <option value="Domestic" label="Domestic" />
-                                    </select>
-                                  </Col>
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Flight No <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="text"
-                                      className="form-control"
-                                      placeholder="Enter Flight Number"
-                                      value={flightNo}
-                                      onChange={(e) => setFlightNo(e.target.value.toUpperCase())}
-                                    />
-                                  </Col>
-                                </Row>
-                                <Row className="mb-2">
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Flight Date <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="date"
-                                      className="form-control"
-                                      value={flightDate}
-                                      onChange={(e) => setFlightDate(e.target.value)}
-                                      min={currentDate}
-                                    />
-                                  </Col>
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Flight ETA <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="time"
-                                      className="form-control"
-                                      value={flightETA}
-                                      onChange={(e) => setFlightETA(e.target.value)}
-                                    />
-                                  </Col>
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Depart Date <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="date"
-                                      className="form-control"
-                                      value={departDate}
-                                      onChange={(e) => setDepartDate(e.target.value)}
-                                      min={currentDate}
-                                    />
-                                  </Col>
-                                </Row>
-                                <Row className="mb-5">
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Depart Time <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="time"
-                                      className="form-control"
-                                      value={departTime}
-                                      onChange={(e) => setDepartTime(e.target.value)}
-                                    />
-                                  </Col>
-                                  <Col md={8} sm={8} xs={12}>
-                                    <FormGroup>
+    <>
+      <div className="alertbox_editform d-flex justify-content-end align-items-center fs-6">
+        {alert.visible && <Alert color={alert.color}>{alert.message}</Alert>}
+      </div>
+      <DashboardLayout>
+        <DashboardNavbar />
+        <MDBox mt={8}>
+          <MDBox mb={3}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={12}>
+                <Card id="delete-account">
+                  <MDBox pt={3} px={2}>
+                    <MDTypography align="center" variant="h6" fontWeight="medium">
+                      Update Cutomer
+                    </MDTypography>
+                  </MDBox>
+                  <Divider />
+                  <div className="container mb-3">
+                    <Row>
+                      <Col>
+                        <Card>
+                          <CardBody>
+                            <Formik
+                              initialValues={{
+                                prnNo: "",
+                                docNo: "",
+                                corporate: "",
+                                agentName: "",
+                                bookedBy: "",
+                                modifiedBy: "",
+                                bookName: "",
+                                receiptNo: "",
+                                bookingDate: "",
+                                bookingTime: "",
+                                fullName: "",
+                                email: "",
+                                phoneNo: "",
+                                alternatePhoneNo: "",
+                                address: "",
+                                pickupDate: "",
+                                pickupTime: "",
+                                pickupPoint: "",
+                                pickupAddress: "",
+                                passengerRemark: "",
+                                area: "",
+                                trip: "",
+                                airportType: "",
+                                flightNo: "",
+                                flightDate: "",
+                                flightETA: "",
+                                departDate: "",
+                                departTime: "",
+                                collectionThrough: "",
+                                totalSeats: "",
+                                ticketAmount: "",
+                                discountAmount: "",
+                                cgstAmt: "",
+                                sgstAmt: "",
+                                pickupCharges: "",
+                                totalAmount: "",
+                              }}
+                              onSubmit={onSubmit}
+                            >
+                              <Form>
+                                <div className="container">
+                                  <Row className="mb-5">
+                                    <Col md={6} sm={6} xs={12}>
                                       <Label className={darkMode ? "white-text" : "black-text"}>
-                                        Collection Through <span className="text-danger">*</span>
+                                        PRN No <span className="text-danger">*</span>
                                       </Label>
+                                      <Input
+                                        type="number"
+                                        className="form-control"
+                                        placeholder="Enter PRN Number"
+                                        value={prnNo}
+                                        onChange={(e) => setPrnNo(e.target.value)}
+                                      />
+                                    </Col>
+                                    <Col md={6} sm={6} xs={12}>
                                       <Label className={darkMode ? "white-text" : "black-text"}>
-                                        <Input
-                                          type="radio"
-                                          value="Offline"
-                                          checked={collectionThrough === "Offline"}
-                                          onChange={() => setCollectionThrough("Offline")}
-                                        />{" "}
-                                        Offline
+                                        Doc No <span className="text-danger">*</span>
                                       </Label>
+                                      <Input
+                                        type="number"
+                                        className="form-control"
+                                        placeholder="Enter Doc Number"
+                                        value={docNo}
+                                        onChange={(e) => setDocNo(e.target.value)}
+                                      />
+                                    </Col>
+                                  </Row>
+                                  <Divider />
+                                  <Row className="mb-2">
+                                    <Col md={6} sm={6} xs={12}>
                                       <Label className={darkMode ? "white-text" : "black-text"}>
-                                        <Input
-                                          type="radio"
-                                          value="Online"
-                                          checked={collectionThrough === "Online"}
-                                          onChange={() => setCollectionThrough("Online")}
-                                        />{" "}
-                                        Online
+                                        Corporate
+                                        <span className="text-danger">*</span>
                                       </Label>
-                                    </FormGroup>
-                                  </Col>
-                                </Row>
+                                      <Input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Enter Corporate"
+                                        value={corporate}
+                                        onChange={(e) => setCorporate(e.target.value)}
+                                      />
+                                    </Col>
+                                    <Col md={6} sm={6} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        Agent Name
+                                        <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Enter Agent Name"
+                                        value={agentName}
+                                        onChange={(e) => setAgentName(e.target.value)}
+                                      />
+                                    </Col>
+                                  </Row>
+                                  <Row className="mb-2">
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        Booked By <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        placeholder="Booked By"
+                                        className="form-control"
+                                        value={bookedBy}
+                                        onChange={(e) => setBookedBy(e.target.value)}
+                                      />
+                                    </Col>
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        Modify By <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Modify By"
+                                        value={modifiedBy}
+                                        onChange={(e) => setModifiedBy(e.target.value)}
+                                      />
+                                    </Col>
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        Book Name <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Book Name"
+                                        value={bookName}
+                                        onChange={(e) => setBookName(e.target.value)}
+                                      />
+                                    </Col>
+                                  </Row>
+                                  <Row className="mb-5">
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        Receipt No <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="number"
+                                        placeholder="Enter Receipt No"
+                                        className="form-control"
+                                        value={receiptNo}
+                                        onChange={(e) => setReceiptNo(e.target.value)}
+                                      />
+                                    </Col>
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        Booking Date <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="date"
+                                        className="form-control"
+                                        value={bookingDate}
+                                        onChange={(e) => setBookingDate(e.target.value)}
+                                        min={currentDate}
+                                      />
+                                    </Col>
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        Booking Time <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="time"
+                                        className="form-control"
+                                        value={bookingTime}
+                                        onChange={(e) => setBookingTime(e.target.value)}
+                                      />
+                                    </Col>
+                                  </Row>
+                                  <Divider />
+                                  <Row className="mb-2">
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        Full Name <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Enter Full Name"
+                                        value={fullName}
+                                        onChange={(e) => setFullName(e.target.value)}
+                                      />
+                                    </Col>
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        Email <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="email"
+                                        className="form-control"
+                                        placeholder="Enter Email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                      />
+                                    </Col>
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        Phone No <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="number"
+                                        className="form-control"
+                                        placeholder="Enter Phone Number"
+                                        value={phoneNo}
+                                        onChange={(e) => setPhoneNo(e.target.value)}
+                                      />
+                                    </Col>
+                                  </Row>
+                                  <Row className="mb-2">
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        Alternate Phone No <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="number"
+                                        className="form-control"
+                                        placeholder="Enter Alternate Phone Number"
+                                        value={alternatePhoneNo}
+                                        onChange={(e) => setAlternatePhoneNo(e.target.value)}
+                                      />
+                                    </Col>
+                                    <Col md={8} sm={8} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        Address <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Enter Address"
+                                        value={address}
+                                        onChange={(e) => setAddress(e.target.value)}
+                                      />
+                                    </Col>
+                                  </Row>
+                                  <Row className="mb-2">
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        PickUp Date <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="date"
+                                        className="form-control"
+                                        value={pickupDate}
+                                        onChange={(e) => setPickupDate(e.target.value)}
+                                        min={currentDate}
+                                      />
+                                    </Col>
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        PickUp Time <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="time"
+                                        className="form-control"
+                                        value={pickupTime}
+                                        onChange={(e) => setPickupTime(e.target.value)}
+                                      />
+                                    </Col>
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        PickUp Point <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Enter Pickup Point"
+                                        value={pickupPoint}
+                                        onChange={(e) => setPickupPoint(e.target.value)}
+                                      />
+                                    </Col>
+                                  </Row>
+                                  <Row className="mb-2">
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        PickUp Address <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Enter Pickup Address"
+                                        value={pickupAddress}
+                                        onChange={(e) => setPickupAddress(e.target.value)}
+                                      />
+                                    </Col>
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        Passenger Remark <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Enter Passenger Remark"
+                                        value={passengerRemark}
+                                        onChange={(e) => setPassengerRemark(e.target.value)}
+                                      />
+                                    </Col>
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        Area <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Enter Area"
+                                        value={area}
+                                        onChange={(e) => setArea(e.target.value)}
+                                      />
+                                    </Col>
+                                  </Row>
+                                  <Row className="mb-2">
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        Trip <span className="text-danger">*</span>
+                                      </Label>
+                                      <select
+                                        value={trip}
+                                        onChange={(e) => setTrip(e.target.value)}
+                                        className="form-control"
+                                      >
+                                        <option disabled value="" label="Select A Trip" />
+                                        <option value="Nashik To Mumbai" label="Nashik To Mumbai" />
+                                        <option value="Mumbai To Nashik" label="Mumbai To Nashik" />
+                                      </select>
+                                    </Col>
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        Airport Type <span className="text-danger">*</span>
+                                      </Label>
+                                      <select
+                                        className="form-control"
+                                        value={airportType}
+                                        onChange={(e) => setAirportType(e.target.value)}
+                                      >
+                                        <option disabled value="" label="Select Airport Type" />
+                                        <option value="International" label="International" />
+                                        <option value="Domestic" label="Domestic" />
+                                      </select>
+                                    </Col>
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        Flight No <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Enter Flight Number"
+                                        value={flightNo}
+                                        onChange={(e) => setFlightNo(e.target.value.toUpperCase())}
+                                      />
+                                    </Col>
+                                  </Row>
+                                  <Row className="mb-2">
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        Flight Date <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="date"
+                                        className="form-control"
+                                        value={flightDate}
+                                        onChange={(e) => setFlightDate(e.target.value)}
+                                        min={currentDate}
+                                      />
+                                    </Col>
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        Flight ETA <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="time"
+                                        className="form-control"
+                                        value={flightETA}
+                                        onChange={(e) => setFlightETA(e.target.value)}
+                                      />
+                                    </Col>
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        Depart Date <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="date"
+                                        className="form-control"
+                                        value={departDate}
+                                        onChange={(e) => setDepartDate(e.target.value)}
+                                        min={currentDate}
+                                      />
+                                    </Col>
+                                  </Row>
+                                  <Row className="mb-5">
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        Depart Time <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="time"
+                                        className="form-control"
+                                        value={departTime}
+                                        onChange={(e) => setDepartTime(e.target.value)}
+                                      />
+                                    </Col>
+                                    <Col md={8} sm={8} xs={12}>
+                                      <FormGroup>
+                                        <Label className={darkMode ? "white-text" : "black-text"}>
+                                          Collection Through <span className="text-danger">*</span>
+                                        </Label>
+                                        <Label className={darkMode ? "white-text" : "black-text"}>
+                                          <Input
+                                            type="radio"
+                                            value="Offline"
+                                            checked={collectionThrough === "Offline"}
+                                            onChange={() => setCollectionThrough("Offline")}
+                                          />{" "}
+                                          Offline
+                                        </Label>
+                                        <Label className={darkMode ? "white-text" : "black-text"}>
+                                          <Input
+                                            type="radio"
+                                            value="Online"
+                                            checked={collectionThrough === "Online"}
+                                            onChange={() => setCollectionThrough("Online")}
+                                          />{" "}
+                                          Online
+                                        </Label>
+                                      </FormGroup>
+                                    </Col>
+                                  </Row>
+                                  <Divider />
+                                  <Row className="mb-2">
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        Total Seats <span className="text-danger">*</span>
+                                      </Label>
+                                      <select
+                                        className="form-control"
+                                        value={totalSeats}
+                                        onChange={(e) => setTotalSeats(e.target.value)}
+                                      >
+                                        <option disabled value="" label="Choose total seats" />
+                                        <option value="1" label="1" />
+                                        <option value="2" label="2" />
+                                        <option value="3" label="3" />
+                                        <option value="4" label="4" />
+                                      </select>
+                                    </Col>
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        Ticket Amount <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        readOnly
+                                        type="number"
+                                        className="form-control"
+                                        placeholder="Enter Ticket Amount"
+                                        value={ticketAmount}
+                                        onChange={(e) => setTicketAmount(e.target.value)}
+                                      />
+                                    </Col>
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        Discount Amount <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="number"
+                                        className="form-control"
+                                        placeholder="Enter Discount Amount"
+                                        value={discountAmount}
+                                        onChange={(e) => setDiscountAmount(e.target.value)}
+                                      />
+                                    </Col>
+                                  </Row>
+                                  <Row className="mb-2">
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        CGST Amt <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="number"
+                                        className="form-control"
+                                        placeholder="Enter CGST Amount"
+                                        value={cgstAmt}
+                                        onChange={(e) => setCgstAmt(e.target.value)}
+                                      />
+                                    </Col>
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        SGST Amount <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="number"
+                                        className="form-control"
+                                        placeholder="Enter SGST Amount"
+                                        value={sgstAmt}
+                                        onChange={(e) => setSgstAmt(e.target.value)}
+                                      />
+                                    </Col>
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        O/L PickUp Charges <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        type="number"
+                                        className="form-control"
+                                        placeholder="Enter O/L PickUp Charges"
+                                        value={pickupCharges}
+                                        onChange={(e) => setPickupCharges(e.target.value)}
+                                      />
+                                    </Col>
+                                  </Row>
+                                  <Row className="mb-5">
+                                    <Col md={4} sm={4} xs={12}>
+                                      <Label className={darkMode ? "white-text" : "black-text"}>
+                                        Total Amount <span className="text-danger">*</span>
+                                      </Label>
+                                      <Input
+                                        readOnly
+                                        type="number"
+                                        className="form-control"
+                                        placeholder="Enter Total Amount"
+                                        value={totalAmount}
+                                        onChange={(e) => setTotalAmount(e.target.value)}
+                                      />
+                                    </Col>
+                                  </Row>
+                                </div>
                                 <Divider />
-                                <Row className="mb-2">
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Total Seats <span className="text-danger">*</span>
-                                    </Label>
-                                    <select
-                                      className="form-control"
-                                      value={totalSeats}
-                                      onChange={(e) => setTotalSeats(e.target.value)}
-                                    >
-                                      <option disabled value="" label="Choose total seats" />
-                                      <option value="1" label="1" />
-                                      <option value="2" label="2" />
-                                      <option value="3" label="3" />
-                                      <option value="4" label="4" />
-                                    </select>
-                                  </Col>
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Ticket Amount <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      readOnly
-                                      type="number"
-                                      className="form-control"
-                                      placeholder="Enter Ticket Amount"
-                                      value={ticketAmount}
-                                      onChange={(e) => setTicketAmount(e.target.value)}
-                                    />
-                                  </Col>
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Discount Amount <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="number"
-                                      className="form-control"
-                                      placeholder="Enter Discount Amount"
-                                      value={discountAmount}
-                                      onChange={(e) => setDiscountAmount(e.target.value)}
-                                    />
-                                  </Col>
-                                </Row>
-                                <Row className="mb-2">
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      CGST Amt <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="number"
-                                      className="form-control"
-                                      placeholder="Enter CGST Amount"
-                                      value={cgstAmt}
-                                      onChange={(e) => setCgstAmt(e.target.value)}
-                                    />
-                                  </Col>
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      SGST Amount <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="number"
-                                      className="form-control"
-                                      placeholder="Enter SGST Amount"
-                                      value={sgstAmt}
-                                      onChange={(e) => setSgstAmt(e.target.value)}
-                                    />
-                                  </Col>
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      O/L PickUp Charges <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      type="number"
-                                      className="form-control"
-                                      placeholder="Enter O/L PickUp Charges"
-                                      value={pickupCharges}
-                                      onChange={(e) => setPickupCharges(e.target.value)}
-                                    />
-                                  </Col>
-                                </Row>
-                                <Row className="mb-5">
-                                  <Col md={4} sm={4} xs={12}>
-                                    <Label className={darkMode ? "white-text" : "black-text"}>
-                                      Total Amount <span className="text-danger">*</span>
-                                    </Label>
-                                    <Input
-                                      readOnly
-                                      type="number"
-                                      className="form-control"
-                                      placeholder="Enter Total Amount"
-                                      value={totalAmount}
-                                      onChange={(e) => setTotalAmount(e.target.value)}
-                                    />
-                                  </Col>
-                                </Row>
-                              </div>
-                              <Divider />
-                              <div className="text-center mt-4 mb-4">
-                                <button
-                                  type="submit"
-                                  className={`btn ${darkMode ? "btn-success" : "btn-dark"}`}
-                                >
-                                  Update
-                                </button>
-                              </div>
-                            </Form>
-                          </Formik>
-                        </CardBody>
-                      </Card>
-                    </Col>
-                  </Row>
-                </div>
+                                <div className="text-center mt-4 mb-4">
+                                  <button
+                                    type="submit"
+                                    className={`btn ${darkMode ? "btn-success" : "btn-dark"}`}
+                                  >
+                                    Update
+                                  </button>
+                                </div>
+                              </Form>
+                            </Formik>
+                          </CardBody>
+                        </Card>
+                      </Col>
+                    </Row>
+                  </div>
 
-                <Modal centered isOpen={modalOpen} toggle={() => setModalOpen(false)}>
-                  <ModalHeader toggle={() => setModalOpen(false)}>
-                    Hurray..! Ticket Updated Successfully
-                  </ModalHeader>
-                  <ModalBody>
-                    <div className="background-img-paper">
-                      <div className="thumb-image-div">
-                        <img
-                          className="thumb-img animate-fade-in animate-jump animate-once animate-ease-in"
-                          src={darkMode ? whiteThumb : darkThumb}
-                          srcSet={`${darkMode ? whiteThumb : darkThumb} 2x`}
-                          sizes="(max-width: 600px) 300px, (max-width: 1200px) 600px, 900px"
-                          alt="Thumb"
-                        />
+                  <Modal centered isOpen={modalOpen} toggle={() => setModalOpen(false)}>
+                    <ModalHeader toggle={() => setModalOpen(false)}>
+                      Hurray..! Ticket Updated Successfully
+                    </ModalHeader>
+                    <ModalBody>
+                      <div className="background-img-paper">
+                        <div className="thumb-image-div">
+                          <img
+                            className="thumb-img animate-fade-in animate-jump animate-once animate-ease-in"
+                            src={darkMode ? whiteThumb : darkThumb}
+                            srcSet={`${darkMode ? whiteThumb : darkThumb} 2x`}
+                            sizes="(max-width: 600px) 300px, (max-width: 1200px) 600px, 900px"
+                            alt="Thumb"
+                          />
+                        </div>
+                        <div className="thumb-image-div mt-4 mb-1">
+                          <button
+                            className={`btn ${darkMode ? "btn-success" : "btn-dark"}`}
+                            onClick={() => setModalOpen(false)}
+                          >
+                            Done
+                          </button>
+                        </div>
                       </div>
-                      <div className="thumb-image-div mt-4 mb-1">
-                        <button
-                          className={`btn ${darkMode ? "btn-success" : "btn-dark"}`}
-                          onClick={() => setModalOpen(false)}
-                        >
-                          Done
-                        </button>
-                      </div>
-                    </div>
-                  </ModalBody>
-                </Modal>
-              </Card>
+                    </ModalBody>
+                  </Modal>
+                </Card>
+              </Grid>
             </Grid>
-          </Grid>
+          </MDBox>
         </MDBox>
-      </MDBox>
-      <Footer />
-    </DashboardLayout>
+        <Footer />
+      </DashboardLayout>
+    </>
   );
 }
 
