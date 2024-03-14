@@ -20,3 +20,13 @@ export const updateCustomer = async (id, data, header) => {
 export const deleteCustomer = async (id, header) => {
   return await commonrequest("DELETE", `${BASE_URL}/addcustomer/delete/${id}`, header);
 };
+
+//Signup & Login
+
+export const signUp = async (data) => {
+  return await commonrequest("POST", `${BASE_URL}/auth/signup`, data);
+};
+
+export const logIn = async (data) => {
+  return await commonrequest("POST", `${BASE_URL}/auth/login`, data);
+};

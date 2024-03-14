@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 // react-router components
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 
 // prop-types is a library for typechecking of props.
 import PropTypes from "prop-types";
@@ -12,6 +12,7 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import Icon from "@mui/material/Icon";
+import Tooltip from "@mui/material/Tooltip";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
@@ -44,6 +45,16 @@ function DashboardNavbar({ absolute, light, isMini }) {
   const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller;
   const [openMenu, setOpenMenu] = useState(false);
   const route = useLocation().pathname.split("/").slice(1);
+
+  const navigate = useNavigate();
+  const logOut = () => {
+    localStorage.removeItem("token");
+    navigate("/authentication/sign-in");
+  };
+
+  const handleClickSignUp = () => {
+    navigate("/authentication/sign-up");
+  };
 
   useEffect(() => {
     // Setting the navbar type
@@ -89,9 +100,13 @@ function DashboardNavbar({ absolute, light, isMini }) {
       onClose={handleCloseMenu}
       sx={{ mt: 2 }}
     >
-      <NotificationItem icon={<Icon>email</Icon>} title="Check new messages" />
-      <NotificationItem icon={<Icon>podcasts</Icon>} title="Manage Podcast sessions" />
-      <NotificationItem icon={<Icon>shopping_cart</Icon>} title="Payment successfully completed" />
+      <NotificationItem
+        onClick={handleClickSignUp}
+        icon={<Icon>group_add_icon</Icon>}
+        title="Add New Admin"
+      />
+      <NotificationItem onClick={logOut} icon={<Icon>exit_to_app_icon</Icon>} title="Logout" />
+      {/* <NotificationItem icon={<Icon>shopping_cart</Icon>} title="Payment successfully completed" /> */}
     </Menu>
   );
 
@@ -124,10 +139,17 @@ function DashboardNavbar({ absolute, light, isMini }) {
               <MDInput label="Search here" />
             </MDBox> */}
             <MDBox color={light ? "white" : "inherit"}>
-              {/* <Link to="/authentication/sign-in/basic">
-                <IconButton sx={navbarIconButton} size="small" disableRipple>
-                  <Icon sx={iconsStyle}>account_circle</Icon>
-                </IconButton>
+              {/* <Link to="/authentication/sign-up/basic">
+                <Tooltip title="Logout">
+                  <IconButton
+                    sx={navbarIconButton}
+                    size="small"
+                    placement="top-start"
+                    disableRipple
+                  >
+                    <Icon sx={iconsStyle}>exit_to_app_icon</Icon>
+                  </IconButton>
+                </Tooltip>
               </Link> */}
               <IconButton
                 size="small"
@@ -149,7 +171,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
               >
                 <Icon sx={iconsStyle}>settings</Icon>
               </IconButton> */}
-              {/* <IconButton
+              <IconButton
                 size="small"
                 disableRipple
                 color="inherit"
@@ -159,8 +181,8 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 variant="contained"
                 onClick={handleOpenMenu}
               >
-                <Icon sx={iconsStyle}>notifications</Icon>
-              </IconButton> */}
+                <Icon sx={iconsStyle}>manage_accounts_icon</Icon>
+              </IconButton>
               {renderMenu()}
             </MDBox>
           </MDBox>
