@@ -26,6 +26,7 @@ function Cover() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [corporate, setCorporate] = useState("");
   const [controller, dispatch] = useMaterialUIController();
   const [alert, setAlert] = useState({ visible: false, message: "", color: "" });
   const { darkMode } = controller;
@@ -35,6 +36,7 @@ function Cover() {
       name: name,
       email: email,
       password: password,
+      corporate: corporate,
     };
 
     const response = await signUp(newData);
@@ -56,6 +58,7 @@ function Cover() {
     setName("");
     setEmail("");
     setPassword("");
+    setCorporate("");
   };
 
   return (
@@ -111,6 +114,16 @@ function Cover() {
                   label="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  variant="standard"
+                  fullWidth
+                />
+              </MDBox>
+              <MDBox mb={2}>
+                <MDInput
+                  type="text"
+                  label="Corporate"
+                  value={corporate}
+                  onChange={(e) => setCorporate(e.target.value)}
                   variant="standard"
                   fullWidth
                 />

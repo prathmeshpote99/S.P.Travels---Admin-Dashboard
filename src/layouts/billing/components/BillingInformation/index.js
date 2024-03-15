@@ -13,7 +13,7 @@ import { CardBody, Col, Input, Label, Row } from "reactstrap";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import whiteThumb from "../../../../../src/assets/images/thumb-up-white.png";
 import darkThumb from "../../../../../src/assets/images/thumb-up-dark.png";
-import { addBooking } from "../../../../services/Apis";
+import { addBooking, getLoggedInUserById } from "../../../../services/Apis";
 import { Alert } from "reactstrap";
 
 function BillingInformation() {
@@ -56,7 +56,11 @@ function BillingInformation() {
   const [pickupCharges, setPickupCharges] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
   const { darkMode } = controller;
-  const currentDate = new Date().toISOString().split("T")[0];
+  let now = new Date();
+  let ISTTime = now.toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
+  let dateAndTime = new Date(ISTTime);
+  let currentDate = dateAndTime.toISOString().split("T")[0];
+  let currentTime = dateAndTime.toTimeString().split(" ")[0].substring(0, 5);
   const [alert, setAlert] = useState({ visible: false, message: "", color: "" });
 
   useEffect(() => {
@@ -86,6 +90,25 @@ function BillingInformation() {
       setTotalAmount(0);
     }
   }, [totalSeats, discountAmount, cgstAmt, sgstAmt, pickupCharges, darkMode]);
+
+  const userId = localStorage.getItem("id");
+  useEffect(() => {
+    const loggedInUserById = async () => {
+      try {
+        const res = await getLoggedInUserById(userId);
+        setBookedBy(res.data.data.name);
+        setModifiedBy(res.data.data.name);
+        setAgentName(res.data.data.name);
+        setCorporate(res.data.data.corporate);
+        setBookingDate(currentDate);
+        setBookingTime(currentTime);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    loggedInUserById(userId);
+  }, []);
 
   const onSubmit = async () => {
     const requiredFields = [
@@ -319,6 +342,7 @@ function BillingInformation() {
                               placeholder="Enter Corporate"
                               value={corporate}
                               onChange={(e) => setCorporate(e.target.value)}
+                              readOnly
                             />
                           </Col>
                           <Col md={6} sm={6} xs={12}>
@@ -332,6 +356,7 @@ function BillingInformation() {
                               placeholder="Enter Agent Name"
                               value={agentName}
                               onChange={(e) => setAgentName(e.target.value)}
+                              readOnly
                             />
                           </Col>
                         </Row>
@@ -345,6 +370,7 @@ function BillingInformation() {
                               className="form-control"
                               value={bookedBy}
                               onChange={(e) => setBookedBy(e.target.value)}
+                              readOnly
                             />
                           </Col>
                           <Col md={4} sm={4} xs={12}>
@@ -357,6 +383,7 @@ function BillingInformation() {
                               placeholder="Modify By"
                               value={modifiedBy}
                               onChange={(e) => setModifiedBy(e.target.value)}
+                              readOnly
                             />
                           </Col>
                           <Col md={4} sm={4} xs={12}>
