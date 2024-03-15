@@ -30,3 +30,9 @@ export const signUp = async (data) => {
 export const logIn = async (data) => {
   return await commonrequest("POST", `${BASE_URL}/auth/login`, data);
 };
+
+//Get Loggedin User By Id
+
+export const getLoggedInUserById = async (id) => {
+  return await commonrequest("GET", `${BASE_URL}/auth/getloggedinuser/${id}`);
+};
