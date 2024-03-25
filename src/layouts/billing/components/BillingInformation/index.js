@@ -9,11 +9,11 @@ import { Formik, Form } from "formik";
 import { useMaterialUIController } from "context";
 // Billing page components
 import React, { useEffect, useState } from "react";
-import { CardBody, Col, Input, Label, Row } from "reactstrap";
+import { CardBody, Col, Input, Label, Row, Spinner } from "reactstrap";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import whiteThumb from "../../../../../src/assets/images/thumb-up-white.png";
 import darkThumb from "../../../../../src/assets/images/thumb-up-dark.png";
-import { addBooking, getLoggedInUserById } from "../../../../services/Apis";
+import { addBooking, getLoggedInUserById, paymentLink } from "../../../../services/Apis";
 import { Alert } from "reactstrap";
 
 function BillingInformation() {
@@ -55,6 +55,9 @@ function BillingInformation() {
   const [sgstAmt, setSgstAmt] = useState(0);
   const [pickupCharges, setPickupCharges] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [buttonText, setButtonText] = useState("Send Payment Link 💸");
+  const [timer, setTimer] = useState(60);
   const { darkMode } = controller;
   let now = new Date();
   let ISTTime = now.toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
@@ -108,7 +111,63 @@ function BillingInformation() {
     };
 
     loggedInUserById(userId);
-  }, []);
+
+    let countdown;
+    if (isLoading) {
+      countdown = setInterval(() => {
+        setTimer((prevTimer) => prevTimer - 1);
+      }, 1000);
+    }
+    return () => clearInterval(countdown);
+  }, [isLoading]);
+
+  const handleSendPaymentLink = async () => {
+    try {
+      const requiredFields = [fullName, email, totalAmount];
+      const hasEmptyField = requiredFields.some(
+        (field) => field === "" || field === null || field === 0
+      );
+      if (hasEmptyField) {
+        setAlert({
+          visible: true,
+          message: "Need Full Name, Email and Total Amount for send payment link 🙄",
+          color: "warning",
+        });
+        setTimeout(() => {
+          setAlert({ visible: false, message: "", color: "" });
+        }, 2000);
+        return;
+      }
+      const linkData = {
+        fullName,
+        email,
+        totalAmount,
+      };
+      const res = await paymentLink(linkData);
+      console.log(res);
+      setAlert({
+        visible: true,
+        message: `Payment link is send on ${email}`,
+        color: "success",
+      });
+      setIsLoading(true);
+      setButtonText("Resend");
+      setTimer(60);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 60000);
+    } catch (error) {
+      console.log(error);
+      setAlert({
+        visible: true,
+        message: "Failed to send payment link 🙁",
+        color: "error",
+      });
+    }
+    setTimeout(() => {
+      setAlert({ visible: false, message: "", color: "" });
+    }, 2000);
+  };
 
   const onSubmit = async () => {
     const requiredFields = [
@@ -792,13 +851,37 @@ function BillingInformation() {
                         </Row>
                       </div>
                       <Divider />
-                      <div className="text-center mt-4 mb-4">
-                        <button
-                          type="submit"
-                          className={`btn ${darkMode ? "btn-success" : "btn-dark"}`}
-                        >
-                          Add
-                        </button>
+                      <div className="container">
+                        <Row>
+                          <Col md={collectionThrough === "Online" ? 4 : ""}></Col>
+                          <Col md={collectionThrough === "Online" ? 2 : 12}>
+                            <div className="text-center mt-4 mb-4">
+                              <button
+                                type="submit"
+                                className={`btn ${darkMode ? "btn-success" : "btn-dark"}`}
+                              >
+                                Add
+                              </button>
+                            </div>
+                          </Col>
+                          <Col md={collectionThrough === "Online" ? 3 : ""} className="text-center">
+                            {collectionThrough === "Online" && (
+                              <div className="text-center mt-4 mb-4">
+                                <button
+                                  type="button"
+                                  className={`btn ${darkMode ? "btn-success" : "btn-dark"}`}
+                                  onClick={handleSendPaymentLink}
+                                  disabled={isLoading}
+                                >
+                                  {isLoading
+                                    ? `Resend (${timer < 10 ? "00:0" + timer : "00:" + timer})`
+                                    : buttonText}
+                                </button>
+                              </div>
+                            )}
+                          </Col>
+                          <Col md={collectionThrough === "Online" ? 3 : ""}></Col>
+                        </Row>
                       </div>
                     </Form>
                   </Formik>

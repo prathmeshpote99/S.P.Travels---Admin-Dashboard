@@ -36,3 +36,12 @@ export const logIn = async (data) => {
 export const getLoggedInUserById = async (id) => {
   return await commonrequest("GET", `${BASE_URL}/auth/getloggedinuser/${id}`);
 };
+
+//Pyment Link
+export const paymentLink = async (data) => {
+  return await commonrequest("POST", `${BASE_URL}/addcustomer/payment`, {
+    name: data.fullName,
+    email: data.email,
+    amount: data.totalAmount * 100,
+  });
+};
